@@ -4,12 +4,15 @@ namespace Model;
 
 class Usuario extends ActiveRecord {
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
+    protected static $columnasDB = ['id', 'nombre', 'nickname', 'email','fecha_de_nacimiento','numero', 'password',  'token','confirmado','fechaCreacion', 'admin'];
 
     public $id;
     public $nombre;
-    public $apellido;
+    public $nickname;
     public $email;
+    public $fecha_de_nacimiento;
+    public $fechaCreacion;
+    public $numero;
     public $password;
     public $password2;
     public $confirmado;
@@ -24,13 +27,15 @@ class Usuario extends ActiveRecord {
     {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
+        $this->nickname = $args['nickname'] ?? '';
+        $this->fecha_de_nacimiento = $args['fecha_de_nacimiento'] ?? "2000-01-10";
+        $this->fechaCreacion = $args['fechaCreacion'] ?? "2000-01-10";
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
         $this->token = $args['token'] ?? '';
-        $this->admin = $args['admin'] ?? '';
+        $this->admin = $args['admin'] ?? 0;
     }
 
     // Validar el Login de Usuarios
@@ -53,8 +58,8 @@ class Usuario extends ActiveRecord {
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre es Obligatorio';
         }
-        if(!$this->apellido) {
-            self::$alertas['error'][] = 'El Apellido es Obligatorio';
+        if(!$this->nickname) {
+            self::$alertas['error'][] = 'El nickname es Obligatorio';
         }
         if(!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';

@@ -14,12 +14,13 @@ class AuthController {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
             $usuario = new Usuario($_POST);
-
-            $alertas = $usuario->validarLogin();
+            
+            // $alertas = $usuario->validarLogin();
             
             if(empty($alertas)) {
                 // Verificar quel el usuario exista
                 $usuario = Usuario::where('email', $usuario->email);
+                
                 if(!$usuario || !$usuario->confirmado ) {
                     Usuario::setAlerta('error', 'El Usuario No Existe o no esta confirmado');
                 } else {
@@ -30,10 +31,10 @@ class AuthController {
                         session_start();    
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre;
-                        $_SESSION['apellido'] = $usuario->apellido;
+                        $_SESSION['nickname'] = $usuario->nickname;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['admin'] = $usuario->admin ?? null;
-                        
+                        debuguear($_SESSION);
                     } else {
                         Usuario::setAlerta('error', 'Password Incorrecto');
                     }
@@ -68,7 +69,7 @@ class AuthController {
             $usuario->sincronizar($_POST);
             
             $alertas = $usuario->validar_cuenta();
-
+            
             if(empty($alertas)) {
                 $existeUsuario = Usuario::where('email', $usuario->email);
 
@@ -85,6 +86,7 @@ class AuthController {
                     // Generar el Token
                     $usuario->crearToken();
 
+                    
                     // Crear un nuevo usuario
                     $resultado =  $usuario->guardar();
 
