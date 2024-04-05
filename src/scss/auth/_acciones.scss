@@ -1,0 +1,17 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.acciones{
+    @include m.telefono {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__enlace{
+        display: block;
+        margin-bottom: 2rem;
+        text-align: center;
+        @include m.telefono{
+            margin-bottom: 0;
+        }
+    }
+}
