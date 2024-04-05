@@ -1,1 +1,11 @@
-<h1>Verifica tu correo para confirmar</h1>
+<main class="contenedor-sm">
+    <div class="mensaje">
+        <h1 class="mensaje__titulo">Verifique su correo para confirmar su cuenta</h1>
+    </div>
+
+    <div class="acciones">
+        <a href="/login" class="acciones__enlace">¿Tienes una cuenta? Inicia Sesion</a>
+        <a href="/olvide" class="acciones__enlace">¿Olvidaste tu contraseña?</a>
+    </div>
+    
+</main>
