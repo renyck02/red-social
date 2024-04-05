@@ -1,7 +1,7 @@
 {
-  "name": "devwebcamp-php-mvc-mysql",
+  "name": "Red Social",
   "version": "1.0.0",
-  "description": "Proyecto Final Desarrollo Web Completo con @codigoconjuan",
+  "description": "Red Social",
   "main": "index.js",
   "scripts": {
     "dev": "gulp dev"

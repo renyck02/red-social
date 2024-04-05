@@ -1,9 +1,11 @@
-<form method="POST" >
-    <div class="login__campo">
-        <label for="email">Correo</label>
-        <input type="email" id="email" name="email">
-    </div>
+<div class="contenedor">
+    <form method="POST" >
+        <div class="login__campo">
+            <label for="email">Correo</label>
+            <input type="email" id="email" name="email">
+        </div>
 
-    <input type="submit">
+        <input type="submit">
 
-</form>
+    </form>
+</div>
