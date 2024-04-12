@@ -1,8 +1,7 @@
-@use "base/mixins" as m;
-@use "base/variables" as v;
+
 
 .dashboard {
-    position: relative;
+    position: fixed;
     background-color: #00000005;
     width: 8.5rem;
     height: 100vh; 

@@ -1,0 +1,59 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.contenedor-app{
+    display: flex;
+    gap: 5rem;
+}
+
+
+.amigos,
+.chats-recientes{
+    height: 40rem;
+    background-color: #00000005;
+    width: 34rem;
+    border-radius: .6rem;
+    &__texto,
+    .amigo,
+    .chat-reciente{
+        margin:1.5rem 0 0 1rem;
+    }
+}
+.amigo,
+.chat-reciente{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &__imagen {
+        border-radius: 50%;
+        width: 4.8rem;
+        height: 4.8rem;
+        background-color: #0000000A;
+    }
+    &__nombre{
+
+    }
+}
+
+.chats-recientes{
+    margin-top: 4rem;
+    height: 48rem;
+}
+.chat-reciente{
+    background-color: #0000000A;
+    border-radius: .5rem;
+    width: 30rem;padding: .2rem;
+}
+
+.publicar{
+    height: 10rem;
+    width: 15rem;
+    background-color: #00000005;
+    border-radius: .6rem;
+    &__texto {
+        margin:1.5rem 0 0 1rem;
+    }
+    &__input{
+        width: 12rem;
+    }
+}
