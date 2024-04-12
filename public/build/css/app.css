@@ -423,4 +423,45 @@ h3 {
   font-size: 2rem;
   text-align: center;
 }
+
+.dashboard {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.0196078431);
+  width: 8.5rem;
+  height: 100vh;
+}
+.dashboard__campos {
+  position: absolute;
+  top: 8rem;
+  left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard__campos .dashboard__campo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.dashboard__campos .dashboard__campo-imagen {
+  width: 2rem;
+  margin: auto;
+  position: relative;
+}
+.dashboard__campos .dashboard__campo-imagen--fondo {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  left: -100%;
+  width: 6rem;
+  height: 2.5rem;
+  background-color: #D9D9D9;
+  border-radius: 0.5rem;
+  transition: opacity 0.3s ease-in-out;
+}
+.dashboard__campos .dashboard__campo-imagen:hover .dashboard__campo-imagen--fondo {
+  opacity: 1;
+}
+.dashboard__campos .dashboard__campo--texto {
+  margin: 0.5rem;
+  font-size: 1.5rem;
+}
 /*# sourceMappingURL=app.css.map */

@@ -2,6 +2,7 @@
     <div class="dashboard__campos">
         <div class="dashboard__campo">
             <div class="dashboard__campo-imagen">
+                <div class="dashboard__campo-imagen--fondo"></div>
                 <picture>
                     <source src="/build/img/hogar.webp" type="image/webp">
                     <source src="/build/img/hogar.avif" type="image/avif">
@@ -14,6 +15,7 @@
 
         <div class="dashboard__campo">
             <div class="dashboard__campo-imagen">
+                <div class="dashboard__campo-imagen--fondo"></div>
                 <picture>
                     <source src="/build/img/groups.webp" type="image/webp">
                     <source src="/build/img/groups.avif" type="image/avif">
@@ -26,6 +28,7 @@
 
         <div class="dashboard__campo">
             <div class="dashboard__campo-imagen">
+                <div class="dashboard__campo-imagen--fondo"></div>
                 <picture>
                     <source src="/build/img/chats.webp" type="image/webp">
                     <source src="/build/img/chats.avif" type="image/avif">
