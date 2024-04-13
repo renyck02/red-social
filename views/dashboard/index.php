@@ -6,6 +6,7 @@
         <h3 class="amigos__texto">
             Amigos
         </h3>
+        
         <div class="amigo">
             <div class="amigo__imagen"></div>
             <p class="amigo__nombre">Renéitor Pro</p>
@@ -47,7 +48,7 @@
         </div>
 
         <div class="publicaciones">
-            
+
         </div>
     </div>
     
