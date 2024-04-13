@@ -1,0 +1,30 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.busqueda{
+    
+    position: fixed;
+    z-index: 1000;
+    left: 55vh;
+    top: 20vh;
+    width: 80rem;
+    height: 30rem;
+    background-color:#00000028;
+    
+    border-radius: 1rem;
+    &__input{
+        margin: 2rem 0 0 2rem;
+        width: 95%;
+        height: 3rem;
+        border: none;
+        border-radius: 1rem;
+    }
+    &__resultados{
+        margin: 2rem 0 0 2rem;
+        height: 70%;
+        width: 95%;
+        margin-top: 2rem;
+        background-color:#00000028;
+        border-radius: 1rem;
+    }
+}

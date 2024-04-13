@@ -62,6 +62,11 @@
         </div>
     </div>
     
+    <!-- Ventana de busqueda de usuarios -->
+    <div class="busqueda" id="busqueda">
+        <input type="text" class="busqueda__input" id="lupa">
+        <div class="busqueda__resultados">
 
-
+        </div>
+    </div>
 </div>
