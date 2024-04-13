@@ -3,10 +3,20 @@
 <div class="contenedor contenedor-app">
     <div class="contenedor-izquierda">
         <div class="amigos">
-        <h3 class="amigos__texto">
-            Amigos
-        </h3>
-        
+            <div class="amigos-contenedor-superior">
+                <h3 class="amigos__texto">
+                    Amigos
+                </h3>
+                <div class="amigos-imagen__busqueda">
+                    <picture>
+                        <source src="/build/img/lupa.webp" type="image/webp">
+                        <source src="/build/img/lupa.avif" type="image/avif">
+                        <source src="/build/img/lupa.png" type="image/png">
+                        <img src="/build/img/lupa.png" alt="busqueda de amigos">
+                    </picture>
+                </div>
+            </div>
+
         <div class="amigo">
             <div class="amigo__imagen"></div>
             <p class="amigo__nombre">Renéitor Pro</p>

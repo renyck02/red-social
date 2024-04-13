@@ -15,8 +15,25 @@
     border-radius: .6rem;
     &__texto,
     .amigo,
-    .chat-reciente{
+    .chat-reciente,
+    &-imagen__busqueda{
         margin:1.5rem 0 0 1rem;
+    }
+    &-imagen__busqueda{
+        width: 2.5rem;
+        margin-right: 2rem;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &__texto{
+        
+    }
+    &-contenedor-superior{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
     }
 }
 .amigo,

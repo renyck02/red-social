@@ -479,11 +479,28 @@ h3 {
 }
 .amigos__texto,
 .amigos .amigo,
-.amigos .chat-reciente,
+.amigos .chat-reciente, .amigos-imagen__busqueda,
 .chats-recientes__texto,
 .chats-recientes .amigo,
-.chats-recientes .chat-reciente {
+.chats-recientes .chat-reciente,
+.chats-recientes-imagen__busqueda {
   margin: 1.5rem 0 0 1rem;
+}
+.amigos-imagen__busqueda,
+.chats-recientes-imagen__busqueda {
+  width: 2.5rem;
+  margin-right: 2rem;
+}
+.amigos-imagen__busqueda:hover,
+.chats-recientes-imagen__busqueda:hover {
+  cursor: pointer;
+}
+.amigos-contenedor-superior,
+.chats-recientes-contenedor-superior {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
 }
 
 .amigo,
