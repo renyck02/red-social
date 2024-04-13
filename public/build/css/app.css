@@ -512,15 +512,33 @@ h3 {
 }
 
 .publicar {
-  height: 10rem;
-  width: 15rem;
+  height: 12rem;
+  width: 65rem;
   background-color: rgba(0, 0, 0, 0.0196078431);
   border-radius: 0.6rem;
 }
-.publicar__texto {
+.publicar__texto, .publicar__input {
   margin: 1.5rem 0 0 1rem;
 }
 .publicar__input {
-  width: 12rem;
+  display: flex;
+  width: 95%;
+  background-color: rgba(0, 0, 0, 0.0392156863);
+  border-radius: 1rem;
+  padding: 0.3rem;
+}
+.publicar__imagen {
+  border-radius: 50%;
+  width: 4.8rem;
+  height: 4.8rem;
+  background-color: rgba(0, 0, 0, 0.0392156863);
+}
+
+.publicaciones {
+  height: 83%;
+  width: 65rem;
+  background-color: rgba(0, 0, 0, 0.0196078431);
+  border-radius: 0.6rem;
+  margin-top: 3rem;
 }
 /*# sourceMappingURL=app.css.map */

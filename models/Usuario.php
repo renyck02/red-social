@@ -29,8 +29,9 @@ class Usuario extends ActiveRecord {
         $this->nombre = $args['nombre'] ?? '';
         $this->nickname = $args['nickname'] ?? '';
         $this->fecha_de_nacimiento = $args['fecha_de_nacimiento'] ?? "2000-01-10";
-        $this->fechaCreacion = $args['fechaCreacion'] ?? "2000-01-10";
+        $this->fechaCreacion = $args['fechaCreacion'] ?? date("Y-m-d");
         $this->email = $args['email'] ?? '';
+        $this->numero =$args["numero"] ?? "";
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
@@ -63,6 +64,15 @@ class Usuario extends ActiveRecord {
         }
         if(!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
+        }
+        if(!$this->numero) {
+            self::$alertas['error'][] = 'El Numero es Obligatorio';
+        }
+        if(strlen($this->numero) > 10 || strlen($this->numero) < 10) {
+            self::$alertas['error'][] = 'El Numero debe de ser de 10 digitos';
+        }
+        if(!$this->fecha_de_nacimiento){
+            self::$alertas['error'][] = 'La fecha de nacimiento es obligatoria';
         }
         if(!$this->password) {
             self::$alertas['error'][] = 'El Password no puede ir vacio';

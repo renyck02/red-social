@@ -46,14 +46,33 @@
 }
 
 .publicar{
-    height: 10rem;
-    width: 15rem;
+    height: 12rem; 
+    width: 65rem;
     background-color: #00000005;
     border-radius: .6rem;
-    &__texto {
+    &__texto,
+    &__input {
         margin:1.5rem 0 0 1rem;
     }
     &__input{
-        width: 12rem;
+        display: flex;
+        width: 95%;
+        background-color: #0000000A;
+        border-radius: 1rem;
+        padding: .3rem;
     }
+    &__imagen {
+        border-radius: 50%;
+        width: 4.8rem;
+        height: 4.8rem;
+        background-color: #0000000A;
+    }
+}
+
+.publicaciones {
+    height: 83%; 
+    width: 65rem;
+    background-color: #00000005;
+    border-radius: .6rem;
+    margin-top: 3rem;
 }

@@ -18,6 +18,16 @@
         </div>
 
         <div class="formulario-auth__campo">
+            <label for="numero" class="formulario-auth__campo--label">Numero</label>
+            <input type="number" id="numero" name="numero" class="formulario-auth__campo--input" >
+        </div>
+
+        <div class="formulario-auth__campo">
+            <label for="nacimiento" class="formulario-auth__campo--label">Fecha nacimiento</label>
+            <input type="date" id="nacimiento" name="fecha_de_nacimiento" class="formulario-auth__campo--input" >
+        </div>
+
+        <div class="formulario-auth__campo">
             <label for="password" class="formulario-auth__campo--label">Password</label>
             <input type="password" id="password" name="password" class="formulario-auth__campo--input">
         </div>

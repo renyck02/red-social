@@ -45,6 +45,10 @@
                 <p class="publicar__texto">Di algo...</p>
             </div>
         </div>
+
+        <div class="publicaciones">
+            
+        </div>
     </div>
     
 
