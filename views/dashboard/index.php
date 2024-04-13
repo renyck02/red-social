@@ -7,7 +7,7 @@
                 <h3 class="amigos__texto">
                     Amigos
                 </h3>
-                <div class="amigos-imagen__busqueda">
+                <div class="amigos-imagen__busqueda" id="lupa">
                     <picture>
                         <source src="/build/img/lupa.webp" type="image/webp">
                         <source src="/build/img/lupa.avif" type="image/avif">
@@ -64,7 +64,7 @@
     
     <!-- Ventana de busqueda de usuarios -->
     <div class="busqueda" id="busqueda">
-        <input type="text" class="busqueda__input" id="lupa">
+        <input type="text" class="busqueda__input" placeholder="Busca a tus amigos por su nickname" id="busqueda__input">
         <div class="busqueda__resultados">
 
         </div>

@@ -2,7 +2,7 @@
 @use "base/variables" as v;
 
 .busqueda{
-    
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 55vh;
@@ -27,4 +27,8 @@
         background-color:#00000028;
         border-radius: 1rem;
     }
+}
+
+.mostrar{
+    display: block;
 }

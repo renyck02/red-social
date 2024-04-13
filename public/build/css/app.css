@@ -516,6 +516,10 @@ h3 {
   height: 4.8rem;
   background-color: rgba(0, 0, 0, 0.0392156863);
 }
+.amigos {
+  margin-top: 1.5rem;
+}
+
 .chats-recientes {
   margin-top: 4rem;
   height: 48rem;
@@ -560,6 +564,7 @@ h3 {
 }
 
 .busqueda {
+  display: none;
   position: fixed;
   z-index: 1000;
   left: 55vh;
@@ -583,5 +588,9 @@ h3 {
   margin-top: 2rem;
   background-color: rgba(0, 0, 0, 0.1568627451);
   border-radius: 1rem;
+}
+
+.mostrar {
+  display: block;
 }
 /*# sourceMappingURL=app.css.map */
