@@ -117,6 +117,14 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
+    // busqueda de usuarios limite 10
+    public static function busquedaUsuarios($nombre,$id){
+        $query = "SELECT id,nickname FROM " . static::$tabla  ." WHERE nickname LIKE '${nombre}%' AND
+        id <> ${id} AND confirmado = 1 LIMIT 10";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // Obtener Registros con cierta cantidad
     public static function get($limite) {
         $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite} ORDER BY id DESC" ;

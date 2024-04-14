@@ -28,7 +28,7 @@ class Usuario extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->nickname = $args['nickname'] ?? '';
-        $this->fecha_de_nacimiento = $args['fecha_de_nacimiento'] ?? "2000-01-10";
+        $this->fecha_de_nacimiento = $args['fecha_de_nacimiento'] ?? "";
         $this->fechaCreacion = $args['fechaCreacion'] ?? date("Y-m-d");
         $this->email = $args['email'] ?? '';
         $this->numero =$args["numero"] ?? "";

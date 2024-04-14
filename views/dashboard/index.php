@@ -65,7 +65,7 @@
     <!-- Ventana de busqueda de usuarios -->
     <div class="busqueda" id="busqueda">
         <input type="text" class="busqueda__input" placeholder="Busca a tus amigos por su nickname" id="busqueda__input">
-        <div class="busqueda__resultados">
+        <div class="busqueda__resultados" id="busqueda__resultados">
 
         </div>
     </div>

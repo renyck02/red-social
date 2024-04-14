@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\ApiController;
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\DashboardController;
@@ -32,6 +33,9 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 // dashboard
 $router->get("/dashboard/inicio", [DashboardController::class, "index"]);
+
+// apis
+$router->post("/api/busquedaamigos", [ApiController::class, "busquedaUsuarios"]);
 
 
 $router->comprobarRutas();
