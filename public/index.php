@@ -36,6 +36,7 @@ $router->get("/dashboard/inicio", [DashboardController::class, "index"]);
 
 // apis
 $router->post("/api/busquedaamigos", [ApiController::class, "busquedaUsuarios"]);
-
+$router->post("/api/agregaamigo", [ApiController::class, "agregaAmigo"]);
+$router->post("/api/estadorelacion", [ApiController::class, "relacion"]);
 
 $router->comprobarRutas();

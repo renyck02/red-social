@@ -32,11 +32,33 @@
         }
 
         async function agregarAmigo(amigoId){
-            console.log(amigoId);
+            
             const datos = new FormData();
             datos.append("amigoId",amigoId);
+            
             try {
-                const url = "http://localhost:3000/api/agregaAmigo";
+                const url = "http://localhost:3000/api/agregaamigo";
+                const respuesta = await fetch(url, {
+                    method: "POST",
+                    body: datos
+                });
+                const resultado = await respuesta.json();
+                if(resultado){
+                    estadoBoton(resultado)
+                    
+                }
+            } catch (error){
+
+            }
+        }
+
+        async function relacion(amigoId){
+            
+            const datos = new FormData();
+            datos.append("amigoId",amigoId);
+            
+            try {
+                const url = "http://localhost:3000/api/estadorelacion";
                 const respuesta = await fetch(url, {
                     method: "POST",
                     body: datos
@@ -44,9 +66,23 @@
                 const resultado = await respuesta.json();
                 if(resultado){
                     console.log(resultado);
+                    estadoBoton(resultado);
+                    
                 }
             } catch (error){
 
+            }
+        }
+
+
+
+        function estadoBoton(relacion){
+            const {usuarioAmigoId, estado} = relacion
+            const botonAgregar = document.querySelector(`[data-id="${usuarioAmigoId}"]`);
+
+            if(estado==0){
+                botonAgregar.textContent = "Enviado"
+                botonAgregar.disabled = true;
             }
         }
 
@@ -70,8 +106,10 @@
                 botonAgregar.classList.add("busqueda-resultado__agregar");
                 botonAgregar.textContent = "Agregar";
                 botonAgregar.dataset.id = e.id;
+                relacion(e.id);
                 botonAgregar.addEventListener("click", ()=> {
                     agregarAmigo(e.id)
+                    
                 });
                 usuario.appendChild(botonAgregar);
 
