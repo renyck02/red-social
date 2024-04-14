@@ -116,6 +116,13 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+    // Busca un registro por sus ids
+    public static function findRelacion($id,$amigoId) {
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE usuarioId = ${id} AND usuarioAmigoId = ${amigoId}";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+    }
+
 
     // busqueda de usuarios limite 10
     public static function busquedaUsuarios($nombre,$id){
