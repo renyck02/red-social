@@ -335,6 +335,10 @@ img {
   margin: 0 auto;
 }
 
+.flex {
+  display: flex;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -590,10 +594,6 @@ h3 {
   border-radius: 1rem;
 }
 
-.mostrar {
-  display: block;
-}
-
 .busqueda-resultado {
   margin: 2rem 2rem 0 2rem;
   display: flex;
@@ -633,5 +633,21 @@ h3 {
 .busqueda-resultado__agregar:hover {
   background-color: #0063c1;
   cursor: pointer;
+}
+
+.notificaciones {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 55vh;
+  top: 20vh;
+  width: 80rem;
+  height: 30rem;
+  background-color: rgba(0, 0, 0, 0.1568627451);
+  border-radius: 1rem;
+}
+
+.mostrar {
+  display: block;
 }
 /*# sourceMappingURL=app.css.map */

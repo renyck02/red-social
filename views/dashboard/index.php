@@ -7,13 +7,25 @@
                 <h3 class="amigos__texto">
                     Amigos
                 </h3>
-                <div class="amigos-imagen__busqueda" id="lupa">
-                    <picture>
-                        <source src="/build/img/lupa.webp" type="image/webp">
-                        <source src="/build/img/lupa.avif" type="image/avif">
-                        <source src="/build/img/lupa.png" type="image/png">
-                        <img src="/build/img/lupa.png" alt="busqueda de amigos">
-                    </picture>
+                <div class="flex">
+
+                    <div class="amigos-imagen__busqueda" id="campana">
+                        <picture>
+                            <source src="/build/img/campana.webp" type="image/webp">
+                            <source src="/build/img/campana.avif" type="image/avif">
+                            <source src="/build/img/campana.png" type="image/png">
+                            <img src="/build/img/campana.png" alt="busqueda de amigos">
+                        </picture>
+                    </div>
+
+                    <div class="amigos-imagen__busqueda" id="lupa">
+                        <picture>
+                            <source src="/build/img/lupa.webp" type="image/webp">
+                            <source src="/build/img/lupa.avif" type="image/avif">
+                            <source src="/build/img/lupa.png" type="image/png">
+                            <img src="/build/img/lupa.png" alt="busqueda de amigos">
+                        </picture>
+                    </div>
                 </div>
             </div>
 
@@ -68,5 +80,9 @@
         <div class="busqueda__resultados" id="busqueda__resultados">
 
         </div>
+    </div>
+
+    <div class="notificaciones" id="notificaciones">
+        
     </div>
 </div>
