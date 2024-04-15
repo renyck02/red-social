@@ -13,4 +13,34 @@
     
     border-radius: 1rem;
 
+    .notificacion{
+        margin-left: 2rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        &__imagen {
+            border-radius: 50%;
+            width: 4.8rem;
+            height: 4.8rem;
+            background-color: #0000000A;
+        }
+        &__nickname {
+            margin-left: 1rem;
+        }
+        &__agregar{
+            @include m.boton(v.$azul,v.$blanco);
+            width: 7rem;
+            border-radius: 5rem;
+            height: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 0rem;
+            margin-left: auto;
+            margin-right: 4rem;
+            padding: 1rem;
+        }
+        &__vacio{
+            text-align: center;
+            margin: 10rem auto;
+        }
+    }
 }

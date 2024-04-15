@@ -646,6 +646,50 @@ h3 {
   background-color: rgba(0, 0, 0, 0.1568627451);
   border-radius: 1rem;
 }
+.notificaciones .notificacion {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.notificaciones .notificacion__imagen {
+  border-radius: 50%;
+  width: 4.8rem;
+  height: 4.8rem;
+  background-color: rgba(0, 0, 0, 0.0392156863);
+}
+.notificaciones .notificacion__nickname {
+  margin-left: 1rem;
+}
+.notificaciones .notificacion__agregar {
+  background-color: #007df4;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  width: 7rem;
+  border-radius: 5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  line-height: 0rem;
+  margin-left: auto;
+  margin-right: 4rem;
+  padding: 1rem;
+}
+.notificaciones .notificacion__agregar:hover {
+  background-color: #0063c1;
+  cursor: pointer;
+}
+.notificaciones .notificacion__vacio {
+  text-align: center;
+  margin: 10rem auto;
+}
 
 .mostrar {
   display: block;
