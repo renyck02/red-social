@@ -99,21 +99,25 @@ class ApiController {
             return;
         }
         $alertas = [];
-        $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
+        $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg"; // crea un nombre unico para la imagen
         $publicacion = new Publicacion($_POST);
-        $alertas = $publicacion->validarPublicacion();
-        if(!$alertas){
-            if(!is_dir(CARPETA__IMAGENES)) {
+        $alertas = $publicacion->validarPublicacion(); 
+        if(!$alertas){ // si alertas esta vacio ejecuta todo porque no hay error
+            if(!is_dir(CARPETA__IMAGENES)) { // verifica si esta creada la carpeta, en caso de que no la crea para que pueda guardar las imagenes
             mkdir(CARPETA__IMAGENES);
             }        
-            if($_FILES["imagen"]['tmp_name']) {
-                $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
-                $image->save(CARPETA__IMAGENES . $nombreImagen);
-                echo json_encode("se guardo"); 
-                return;
+            if($_FILES["imagen"]['tmp_name']) { // si hay una imagen ejecuta todo este codigo
+                $publicacion->imagen = $nombreImagen; 
+                $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600); // crea el objeto de imagen y lo modifica para que sea de 800px y 600px sin perder calidad gracias a Intervention Image
+                $image->save(CARPETA__IMAGENES . $nombreImagen);  // Guarda la imagen en la ruta asignada
             }
+            $publicacion->usuarioId = $id;
+            $resultado = $publicacion->guardar(); // guarda la publicacion
+            if($resultado){
+                echo json_encode("se guardo"); 
+                return; 
+            } 
         }
-
         echo json_encode("no se guardo");  
     }
 }

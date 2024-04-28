@@ -22,7 +22,7 @@ class Publicacion extends ActiveRecord {
         $this->mensaje = $args['mensaje'] ?? '';
         $this->mensaje = $args['mensaje'] ?? '';
         $this->tageoUsuario = $args['tageoUsuario'] ?? '';
-        $this->nivelPrivacidad = $args['nivelPrivacidad'] ?? '';
+        $this->nivelPrivacidad = $args['nivelPrivacidad'] ?? 2;
 
     }
 
