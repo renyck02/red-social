@@ -8,6 +8,7 @@
             busquedaNotificaciones();
         }
 
+        // buscar por solicitudes de amistad 
         async function busquedaNotificaciones() {
             try {
                 const url = "http://localhost:3000/api/notificaciones";
@@ -18,9 +19,6 @@
                 if(resultado){
                     console.log(resultado);
                     mostrarNotificaciones(resultado);
-                    resultado.forEach(e => {
-                        buscarNombre(e.usuarioId);
-                    })
                 }
             } catch (error){
 
@@ -28,33 +26,13 @@
         }
 
         
-        async function buscarNombre(id) {
-            const nickname = document.querySelector(`[data-nick="${id}"]`);
-         
-            try {
-                const url = "http://localhost:3000/api/buscarNombre";
-                const datos = new FormData();
-                datos.append("id",id );
-                const respuesta = await fetch(url, {
-                    method:"POST",
-                    body: datos
-                });
-                const resultado = await respuesta.json();
-                if(resultado){
-                    console.log(resultado.nickname);
-                    nickname.textContent = resultado.nickname;
-                }
-            } catch (error){
-
-            }
-        }
 
         async function agregar(id) {
             const botonAgregar = document.querySelector(`[data-id="${id}"]`);
-            try {
-                const url = "http://localhost:3000/api/agregar";
+            try { 
+                const url = "http://localhost:3000/api/agregar"; 
                 const datos = new FormData();
-                datos.append("id",id );
+                datos.append("id",id ); // id de la persona a la que queremos agregar
                 const respuesta = await fetch(url, {
                     method:"POST",
                     body: datos
@@ -88,7 +66,8 @@
 
                 const nickname = document.createElement("P")
                 nickname.classList.add("notificacion__nickname");
-                nickname.dataset.nick = e.usuarioId;
+                nickname.textContent = e.nickname;
+                nickname.dataset.usuario_id = e.usuario_id;
                 
                 notificacion.appendChild(nickname);
 
@@ -99,7 +78,6 @@
                 
                 botonAgregar.addEventListener("click", ()=> {
                     agregar(e.id);
-                    
                 });
                 notificacion.appendChild(botonAgregar);
                 notificaciones.appendChild(notificacion)

@@ -135,4 +135,10 @@ class Usuario extends ActiveRecord {
     public function crearToken() : void {
         $this->token = uniqid();
     }
+    // Busqueda del nickname
+    /* public static function buscarNickname($columna, $valor) {
+        $query = "SELECT nickname FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+        } */
 }

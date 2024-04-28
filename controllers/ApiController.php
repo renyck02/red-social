@@ -36,14 +36,14 @@ class ApiController {
         echo json_encode($relacion);
     }
 
-    public static function relacion(){
+    public static function relacion(){ // funcion para checar si son o no amigos o si se han mandado solicitud o algo
         session_start();
         $id = $_SESSION["id"] ?? null;
         if(!$id){
             echo json_encode("Inicia sesion");
             return;
         }
-        // verificar si no esta agregado
+        
         $relacion = Amigo::findRelacion($id, $_POST["amigoId"]);
         if($relacion){
             echo json_encode($relacion);
@@ -60,7 +60,7 @@ class ApiController {
             echo json_encode("Inicia sesion");
             return;
         }
-        // verificar si no esta agregado
+        // buscar en la tabla de amigos todas las solicitudes donde a el se las hayan mandado y el estado (relacion) sea 0 (no son amigos)
         $notificaciones = Amigo::notificaciones("usuarioAmigoId", $id);
         if($notificaciones){
             echo json_encode($notificaciones);
@@ -69,24 +69,8 @@ class ApiController {
         echo json_encode([]);
     }
 
-    public static function buscarNombre(){
-        session_start();
-        $id = $_SESSION["id"] ?? null;
-        if(!$id){
-            echo json_encode("Inicia sesion");
-            return;
-        }
-        // verificar si no esta agregado
-        $nickname = Usuario::buscarNickname("id", $_POST["id"]);
-        if($nickname){
-            echo json_encode($nickname);
-            return;
-        }
-        echo json_encode("");
-        
-    }
 
-    public static function agregar(){
+    public static function agregar(){ // api de amigos
         session_start();
         $id = $_SESSION["id"] ?? null;
         if(!$id){

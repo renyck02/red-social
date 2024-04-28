@@ -117,13 +117,6 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
-    // Busca un registro por sus ids
-    public static function findRelacion($id,$amigoId) {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE usuarioId = ${id} AND usuarioAmigoId = ${amigoId}";
-        $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
-    }
-
 
     // busqueda de usuarios limite 10
     public static function busquedaUsuarios($nombre,$id){
@@ -148,21 +141,6 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
-
-    // Busqueda del nickname
-    public static function buscarNickname($columna, $valor) {
-        $query = "SELECT nickname FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
-        $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
-    }
-
-
-    // Busqueda de notificaciones
-    public static function notificaciones($columna, $valor) {
-        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}' AND estado = '0'";
-        $resultado = self::consultarSQL($query);
-        return  $resultado ;
-    }    
 
     // crea un nuevo registro
     public function crear() {
