@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class ResizeCommand extends AbstractCommand
+class ResizeCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Resizes image dimensions
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
@@ -31,20 +29,20 @@ class ResizeCommand extends AbstractCommand
      * Wrapper function for 'imagecopyresampled'
      *
      * @param  Image   $image
-     * @param  int     $dst_x
-     * @param  int     $dst_y
-     * @param  int     $src_x
-     * @param  int     $src_y
-     * @param  int     $dst_w
-     * @param  int     $dst_h
-     * @param  int     $src_w
-     * @param  int     $src_h
+     * @param  integer $dst_x
+     * @param  integer $dst_y
+     * @param  integer $src_x
+     * @param  integer $src_y
+     * @param  integer $dst_w
+     * @param  integer $dst_h
+     * @param  integer $src_w
+     * @param  integer $src_h
      * @return boolean
      */
     protected function modify($image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
     {
         // create new image
-        $modified = imagecreatetruecolor(intval($dst_w), intval($dst_h));
+        $modified = imagecreatetruecolor($dst_w, $dst_h);
 
         // get current image
         $resource = $image->getCore();
@@ -70,8 +68,8 @@ class ResizeCommand extends AbstractCommand
             $dst_y,
             $src_x,
             $src_y,
-            intval($dst_w),
-            intval($dst_h),
+            $dst_w,
+            $dst_h,
             $src_w,
             $src_h
         );

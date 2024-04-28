@@ -6,6 +6,8 @@ use Classes\Email;
 use Model\Amigo;
 use Model\Usuario;
 use MVC\Router;
+use Intervention\Image\ImageManagerStatic as Image;
+use Model\Publicacion;
 
 class ApiController {
     public static function busquedaUsuarios(){
@@ -87,5 +89,31 @@ class ApiController {
         }
         echo json_encode("");
         
+    }
+
+    public static function publicar(){ // api para crear publicaciones
+        session_start();
+        $id = $_SESSION["id"] ?? null;
+        if(!$id){
+            echo json_encode("Inicia sesion");
+            return;
+        }
+        $alertas = [];
+        $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
+        $publicacion = new Publicacion($_POST);
+        $alertas = $publicacion->validarPublicacion();
+        if(!$alertas){
+            if(!is_dir(CARPETA__IMAGENES)) {
+            mkdir(CARPETA__IMAGENES);
+            }        
+            if($_FILES["imagen"]['tmp_name']) {
+                $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+                $image->save(CARPETA__IMAGENES . $nombreImagen);
+                echo json_encode("se guardo"); 
+                return;
+            }
+        }
+
+        echo json_encode("no se guardo");  
     }
 }

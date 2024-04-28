@@ -2,16 +2,13 @@
 
 namespace Intervention\Image;
 
-use Intervention\Image\Exception\NotReadableException;
-use Intervention\Image\Exception\NotSupportedException;
-
 abstract class AbstractColor
 {
     /**
      * Initiates color object from integer
      *
-     * @param  int $value
-     * @return \Intervention\Image\AbstractColor
+     * @param  integer $value
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromInteger($value);
 
@@ -19,7 +16,7 @@ abstract class AbstractColor
      * Initiates color object from given array
      *
      * @param  array $value
-     * @return \Intervention\Image\AbstractColor
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromArray($value);
 
@@ -27,7 +24,7 @@ abstract class AbstractColor
      * Initiates color object from given string
      *
      * @param  string $value
-     * @return \Intervention\Image\AbstractColor
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromString($value);
 
@@ -35,35 +32,35 @@ abstract class AbstractColor
      * Initiates color object from given ImagickPixel object
      *
      * @param  ImagickPixel $value
-     * @return \Intervention\Image\AbstractColor
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromObject($value);
 
     /**
      * Initiates color object from given R, G and B values
      *
-     * @param  int $r
-     * @param  int $g
-     * @param  int $b
-     * @return \Intervention\Image\AbstractColor
+     * @param  integer $r
+     * @param  integer $g
+     * @param  integer $b
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromRgb($r, $g, $b);
 
     /**
      * Initiates color object from given R, G, B and A values
      *
-     * @param  int $r
-     * @param  int $g
-     * @param  int $b
+     * @param  integer $r
+     * @param  integer $g
+     * @param  integer $b
      * @param  float   $a
-     * @return \Intervention\Image\AbstractColor
+     * @return Intervention\Image\AbstractColor
      */
     abstract public function initFromRgba($r, $g, $b, $a);
 
     /**
      * Calculates integer value of current color instance
      *
-     * @return int
+     * @return integer
      */
     abstract public function getInt();
 
@@ -93,7 +90,7 @@ abstract class AbstractColor
      * Determines if current color is different from given color
      *
      * @param  AbstractColor $color
-     * @param  int           $tolerance
+     * @param  integer       $tolerance
      * @return boolean
      */
     abstract public function differs(AbstractColor $color, $tolerance = 0);
@@ -101,7 +98,7 @@ abstract class AbstractColor
     /**
      * Creates new instance
      *
-     * @param mixed $value
+     * @param string $value
      */
     public function __construct($value = null)
     {
@@ -112,7 +109,7 @@ abstract class AbstractColor
      * Parses given value as color
      *
      * @param  mixed $value
-     * @return \Intervention\Image\AbstractColor
+     * @return Intervention\Image\AbstractColor
      */
     public function parse($value)
     {
@@ -135,13 +132,14 @@ abstract class AbstractColor
                 break;
 
             case is_null($value):
-                $this->initFromArray([255, 255, 255, 0]);
+                $this->initFromArray(array(0, 0, 0, 0));
                 break;
 
             default:
-                throw new NotReadableException(
+                throw new \Intervention\Image\Exception\NotReadableException(
                     "Color format ({$value}) cannot be read."
                 );
+                break;
         }
 
         return $this;
@@ -159,25 +157,31 @@ abstract class AbstractColor
 
             case 'rgba':
                 return $this->getRgba();
+                break;
 
             case 'hex':
                 return $this->getHex('#');
+                break;
 
             case 'int':
             case 'integer':
                 return $this->getInt();
+                break;
 
             case 'array':
                 return $this->getArray();
+                break;
 
             case 'obj':
             case 'object':
                 return $this;
+                break;
 
             default:
-                throw new NotSupportedException(
+                throw new \Intervention\Image\Exception\NotSupportedException(
                     "Color format ({$type}) is not supported."
                 );
+                break;
         }
     }
 
@@ -201,25 +205,25 @@ abstract class AbstractColor
         $rgbaPattern = '/^rgba ?\(([0-9]{1,3}), ?([0-9]{1,3}), ?([0-9]{1,3}), ?([0-9.]{1,4})\)$/i';
 
         if (preg_match($hexPattern, $value, $matches)) {
-            $result = [];
+            $result = array();
             $result[0] = strlen($matches[1]) == '1' ? hexdec($matches[1].$matches[1]) : hexdec($matches[1]);
             $result[1] = strlen($matches[2]) == '1' ? hexdec($matches[2].$matches[2]) : hexdec($matches[2]);
             $result[2] = strlen($matches[3]) == '1' ? hexdec($matches[3].$matches[3]) : hexdec($matches[3]);
             $result[3] = 1;
         } elseif (preg_match($rgbPattern, $value, $matches)) {
-            $result = [];
+            $result = array();
             $result[0] = ($matches[1] >= 0 && $matches[1] <= 255) ? intval($matches[1]) : 0;
             $result[1] = ($matches[2] >= 0 && $matches[2] <= 255) ? intval($matches[2]) : 0;
             $result[2] = ($matches[3] >= 0 && $matches[3] <= 255) ? intval($matches[3]) : 0;
             $result[3] = 1;
         } elseif (preg_match($rgbaPattern, $value, $matches)) {
-            $result = [];
+            $result = array();
             $result[0] = ($matches[1] >= 0 && $matches[1] <= 255) ? intval($matches[1]) : 0;
             $result[1] = ($matches[2] >= 0 && $matches[2] <= 255) ? intval($matches[2]) : 0;
             $result[2] = ($matches[3] >= 0 && $matches[3] <= 255) ? intval($matches[3]) : 0;
             $result[3] = ($matches[4] >= 0 && $matches[4] <= 1) ? $matches[4] : 0;
         } else {
-            throw new NotReadableException(
+            throw new \Intervention\Image\Exception\NotReadableException(
                 "Unable to read color ({$value})."
             );
         }

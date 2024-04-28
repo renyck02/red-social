@@ -2,8 +2,6 @@
 
 namespace Intervention\Image\Filters;
 
-use Intervention\Image\Image;
-
 class DemoFilter implements FilterInterface
 {
     /**
@@ -14,14 +12,14 @@ class DemoFilter implements FilterInterface
     /**
      * Size of filter effects
      *
-     * @var int
+     * @var integer
      */
     private $size;
 
     /**
      * Creates new instance of filter
      *
-     * @param int $size
+     * @param integer $size
      */
     public function __construct($size = null)
     {
@@ -31,10 +29,10 @@ class DemoFilter implements FilterInterface
     /**
      * Applies filter effects to given image
      *
-     * @param  \Intervention\Image\Image $image
-     * @return \Intervention\Image\Image
+     * @param  Intervention\Image\Image $image
+     * @return Intervention\Image\Image
      */
-    public function applyFilter(Image $image)
+    public function applyFilter(\Intervention\Image\Image $image)
     {
         $image->pixelate($this->size);
         $image->greyscale();

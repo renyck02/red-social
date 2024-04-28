@@ -2,47 +2,46 @@
 
 namespace Intervention\Image\Imagick\Shapes;
 
-use Intervention\Image\AbstractShape;
-use Intervention\Image\Image;
-use Intervention\Image\Imagick\Color;
+use \Intervention\Image\Image;
+use \Intervention\Image\Imagick\Color;
 
-class RectangleShape extends AbstractShape
+class RectangleShape extends \Intervention\Image\AbstractShape
 {
     /**
      * X-Coordinate of top-left point
      *
-     * @var int
+     * @var integer
      */
     public $x1 = 0;
 
     /**
      * Y-Coordinate of top-left point
      *
-     * @var int
+     * @var integer
      */
     public $y1 = 0;
 
     /**
      * X-Coordinate of bottom-right point
      *
-     * @var int
+     * @var integer
      */
     public $x2 = 0;
 
     /**
      * Y-Coordinate of bottom-right point
      *
-     * @var int
+     * @var integer
      */
     public $y2 = 0;
 
     /**
      * Create new rectangle shape instance
      *
-     * @param int $x1
-     * @param int $y1
-     * @param int $x2
-     * @param int $y2
+     * @param integer $x1
+     * @param integer $y1
+     * @param integer $x2
+     * @param integer $y2
      */
     public function __construct($x1 = null, $y1 = null, $x2 = null, $y2 = null)
     {
@@ -56,8 +55,8 @@ class RectangleShape extends AbstractShape
      * Draw rectangle to given image at certain position
      *
      * @param  Image   $image
-     * @param  int     $x
-     * @param  int     $y
+     * @param  integer $x
+     * @param  integer $y
      * @return boolean
      */
     public function applyToImage(Image $image, $x = 0, $y = 0)

@@ -7,12 +7,12 @@ class ChecksumCommand extends AbstractCommand
     /**
      * Calculates checksum of given image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        $colors = [];
+        $colors = array();
 
         $size = $image->getSize();
 

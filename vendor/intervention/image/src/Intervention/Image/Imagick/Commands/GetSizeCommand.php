@@ -2,25 +2,23 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-use Intervention\Image\Size;
+use \Intervention\Image\Size;
 
-class GetSizeCommand extends AbstractCommand
+class GetSizeCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Reads size of given image instance in pixels
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        /** @var \Imagick $core */
-        $core = $image->getCore();
+        $info = $image->getCore()->identifyImage(true);
 
         $this->setOutput(new Size(
-            $core->getImageWidth(),
-            $core->getImageHeight()
+            $info['geometry']['width'],
+            $info['geometry']['height']
         ));
 
         return true;

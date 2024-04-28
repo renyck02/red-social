@@ -2,18 +2,65 @@
 
 namespace Intervention\Image\Imagick;
 
-use Intervention\Image\AbstractFont;
-use Intervention\Image\Exception\RuntimeException;
-use Intervention\Image\Image;
+use \Intervention\Image\Image;
 
-class Font extends AbstractFont
+class Font extends \Intervention\Image\AbstractFont
 {
+    /**
+     * Text to be written
+     *
+     * @var String
+     */
+    protected $text;
+
+    /**
+     * Text size in pixels
+     *
+     * @var integer
+     */
+    protected $size = 12;
+
+    /**
+     * Color of the text
+     *
+     * @var mixed
+     */
+    protected $color = '000000';
+
+    /**
+     * Rotation angle of the text
+     *
+     * @var integer
+     */
+    protected $angle = 0;
+
+    /**
+     * Horizontal alignment of the text
+     *
+     * @var String
+     */
+    protected $align;
+
+    /**
+     * Vertical alignment of the text
+     *
+     * @var String
+     */
+    protected $valign;
+
+    /**
+     * Path to TTF or GD library internal font file of the text
+     *
+     * @var mixed
+     */
+    protected $file;
+
     /**
      * Draws font to given image at given position
      *
      * @param  Image   $image
-     * @param  int     $posx
-     * @param  int     $posy
+     * @param  integer $posx
+     * @param  integer $posy
      * @return void
      */
     public function applyToImage(Image $image, $posx = 0, $posy = 0)
@@ -27,7 +74,7 @@ class Font extends AbstractFont
         if ($this->hasApplicableFontFile()) {
             $draw->setFont($this->file);
         } else {
-            throw new RuntimeException(
+            throw new \Intervention\Image\Exception\RuntimeException(
                 "Font file must be provided to apply text to image."
             );
         }
@@ -37,7 +84,6 @@ class Font extends AbstractFont
 
         $draw->setFontSize($this->size);
         $draw->setFillColor($color->getPixel());
-        $draw->setTextKerning($this->kerning);
 
         // align horizontal
         switch (strtolower($this->align)) {
@@ -59,64 +105,23 @@ class Font extends AbstractFont
         // align vertical
         if (strtolower($this->valign) != 'bottom') {
 
+            // calculate box size
+            $dimensions = $image->getCore()->queryFontMetrics($draw, $this->text);
+
             // corrections on y-position
             switch (strtolower($this->valign)) {
                 case 'center':
                 case 'middle':
-                // calculate box size
-                $dimensions = $image->getCore()->queryFontMetrics($draw, $this->text);
                 $posy = $posy + $dimensions['textHeight'] * 0.65 / 2;
                 break;
 
                 case 'top':
-                // calculate box size
-                $dimensions = $image->getCore()->queryFontMetrics($draw, $this->text, false);
-                $posy = $posy + $dimensions['characterHeight'];
+                $posy = $posy + $dimensions['textHeight'] * 0.65;
                 break;
             }
         }
 
         // apply to image
         $image->getCore()->annotateImage($draw, $posx, $posy, $this->angle * (-1), $this->text);
-    }
-    
-    /**
-     * Calculates bounding box of current font setting
-     *
-     * @return array
-     */
-    public function getBoxSize()
-    {
-        $box = [];
-
-        // build draw object
-        $draw = new \ImagickDraw();
-        $draw->setStrokeAntialias(true);
-        $draw->setTextAntialias(true);
-
-        // set font file
-        if ($this->hasApplicableFontFile()) {
-            $draw->setFont($this->file);
-        } else {
-            throw new RuntimeException(
-                "Font file must be provided to apply text to image."
-            );
-        }
-
-        $draw->setFontSize($this->size);
-
-        $dimensions = (new \Imagick())->queryFontMetrics($draw, $this->text);
-
-        if (strlen($this->text) == 0) {
-            // no text -> no boxsize
-            $box['width'] = 0;
-            $box['height'] = 0;
-        } else {
-            // get boxsize
-            $box['width'] = intval(abs($dimensions['textWidth']));
-            $box['height'] = intval(abs($dimensions['textHeight']));
-        }
-
-        return $box;
     }
 }

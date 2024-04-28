@@ -2,37 +2,35 @@
 
 namespace Intervention\Image\Imagick;
 
-use Intervention\Image\AbstractDriver;
-use Intervention\Image\Exception\NotSupportedException;
-use Intervention\Image\Image;
+use \Intervention\Image\Size;
 
-class Driver extends AbstractDriver
+class Driver extends \Intervention\Image\AbstractDriver
 {
     /**
      * Creates new instance of driver
      *
-     * @param Decoder $decoder
-     * @param Encoder $encoder
+     * @param Intervention\Image\Imagick\Source  $source
+     * @param Intervention\Image\Imagick\Encoder $encoder
      */
-    public function __construct(Decoder $decoder = null, Encoder $encoder = null)
+    public function __construct(Source $source = null, Encoder $encoder = null)
     {
         if ( ! $this->coreAvailable()) {
-            throw new NotSupportedException(
+            throw new \Intervention\Image\Exception\NotSupportedException(
                 "ImageMagick module not available with this PHP installation."
             );
         }
 
-        $this->decoder = $decoder ? $decoder : new Decoder;
+        $this->source = $source ? $source : new Source;
         $this->encoder = $encoder ? $encoder : new Encoder;
     }
 
     /**
      * Creates new image instance
      *
-     * @param  int     $width
-     * @param  int     $height
-     * @param  mixed   $background
-     * @return \Intervention\Image\Image
+     * @param  integer $width
+     * @param  integer $height
+     * @param  string  $background
+     * @return Intervention\Image\Image
      */
     public function newImage($width, $height, $background = null)
     {
@@ -42,11 +40,14 @@ class Driver extends AbstractDriver
         $core = new \Imagick;
         $core->newImage($width, $height, $background->getPixel(), 'png');
         $core->setType(\Imagick::IMGTYPE_UNDEFINED);
-        $core->setImageType(\Imagick::IMGTYPE_UNDEFINED);
+        $core->setImagetype(\Imagick::IMGTYPE_UNDEFINED);
         $core->setColorspace(\Imagick::COLORSPACE_UNDEFINED);
+        $core->setImageColorspace(\Imagick::COLORSPACE_UNDEFINED);
+
+        $size = new Size($width, $height);
 
         // build image
-        $image = new Image(new static, $core);
+        $image = new \Intervention\Image\Image(new self, $core, $size);
 
         return $image;
     }

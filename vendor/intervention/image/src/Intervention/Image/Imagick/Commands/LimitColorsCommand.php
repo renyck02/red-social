@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class LimitColorsCommand extends AbstractCommand
+class LimitColorsCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Reduces colors of a given image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)

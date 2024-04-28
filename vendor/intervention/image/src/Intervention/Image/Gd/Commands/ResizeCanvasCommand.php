@@ -2,22 +2,23 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
+use \Intervention\Image\Point;
+use \Intervention\Image\Size;
 
-class ResizeCanvasCommand extends AbstractCommand
+class ResizeCanvasCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Resizes image boundaries
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        $width = $this->argument(0)->type('digit')->required()->value();
-        $height = $this->argument(1)->type('digit')->required()->value();
+        $width = $this->argument(0)->type('integer')->required()->value();
+        $height = $this->argument(1)->type('integer')->required()->value();
         $anchor = $this->argument(2)->value('center');
-        $relative = $this->argument(3)->type('boolean')->value(false);
+        $relative = $this->argument(3)->type('boolean')->value();
         $bgcolor = $this->argument(4)->value();
 
         $original_width = $image->getWidth();
@@ -68,7 +69,7 @@ class ResizeCanvasCommand extends AbstractCommand
 
         // make image area transparent to keep transparency
         // even if background-color is set
-        $transparent = imagecolorallocatealpha($canvas->getCore(), 255, 255, 255, 127);
+        $transparent = imagecolorallocatealpha($canvas->getCore(), 0, 0, 0, 127);
         imagealphablending($canvas->getCore(), false); // do not blend / just overwrite
         imagefilledrectangle($canvas->getCore(), $dst_x, $dst_y, $dst_x + $src_w - 1, $dst_y + $src_h - 1, $transparent);
 

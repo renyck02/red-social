@@ -52,41 +52,10 @@ class File
         $this->extension = array_key_exists('extension', $info) ? $info['extension'] : null;
         $this->filename = array_key_exists('filename', $info) ? $info['filename'] : null;
 
-        if (file_exists($path) && is_file($path)) {
+        if (file_exists($path)) {
             $this->mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
         }
 
         return $this;
     }
-
-     /**
-      * Get file size
-      * 
-      * @return mixed
-      */
-    public function filesize()
-    {
-        $path = $this->basePath();
-
-        if (file_exists($path) && is_file($path)) {
-            return filesize($path);
-        }
-        
-        return false;
-    }
-
-    /**
-     * Get fully qualified path
-     *
-     * @return string
-     */
-    public function basePath()
-    {
-        if ($this->dirname && $this->basename) {
-            return ($this->dirname .'/'. $this->basename);
-        }
-
-        return null;
-    }
-
 }

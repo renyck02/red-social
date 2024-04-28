@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class ResizeCommand extends AbstractCommand
+class ResizeCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Resizes image dimensions
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
@@ -22,7 +20,7 @@ class ResizeCommand extends AbstractCommand
         $resized = $image->getSize()->resize($width, $height, $constraints);
 
         // modify image
-        $image->getCore()->scaleImage($resized->getWidth(), $resized->getHeight());
+        $image->getCore()->resizeImage($resized->getWidth(), $resized->getHeight(), \Imagick::FILTER_BOX, 1);
 
         return true;
     }

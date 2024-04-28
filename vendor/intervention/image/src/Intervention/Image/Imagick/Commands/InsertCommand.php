@@ -2,22 +2,22 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
+use \Intervention\Image\Imagick\Source;
 
-class InsertCommand extends AbstractCommand
+class InsertCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Insert another image into given image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
         $source = $this->argument(0)->required()->value();
         $position = $this->argument(1)->type('string')->value();
-        $x = $this->argument(2)->type('digit')->value(0);
-        $y = $this->argument(3)->type('digit')->value(0);
+        $x = $this->argument(2)->type('integer')->value(0);
+        $y = $this->argument(3)->type('integer')->value(0);
 
         // build watermark
         $watermark = $image->getDriver()->init($source);

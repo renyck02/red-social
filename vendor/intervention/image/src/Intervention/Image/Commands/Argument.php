@@ -2,21 +2,19 @@
 
 namespace Intervention\Image\Commands;
 
-use Intervention\Image\Exception\InvalidArgumentException;
-
 class Argument
 {
     /**
      * Command with arguments
      *
-     * @var AbstractCommand
+     * @var Intervention\Image\Commands\AbstractCommand
      */
     public $command;
 
     /**
      * Key of argument in array
      *
-     * @var int
+     * @var integer
      */
     public $key;
 
@@ -24,7 +22,7 @@ class Argument
      * Creates new instance from given command and key
      *
      * @param AbstractCommand $command
-     * @param int             $key
+     * @param integer         $key
      */
     public function __construct(AbstractCommand $command, $key = 0)
     {
@@ -54,21 +52,19 @@ class Argument
         $arguments = $this->command->arguments;
 
         if (is_array($arguments)) {
-            return isset($arguments[$this->key]) ? $arguments[$this->key] : $default;
+            return array_key_exists($this->key, $arguments) ? $arguments[$this->key] : $default;
         }
-
-        return $default;
     }
 
     /**
      * Defines current argument as required
      *
-     * @return \Intervention\Image\Commands\Argument
+     * @return Intervention\Image\Commands\Argument
      */
     public function required()
     {
         if ( ! array_key_exists($this->key, $this->command->arguments)) {
-            throw new InvalidArgumentException(
+            throw new \Intervention\Image\Exception\InvalidArgumentException(
                 sprintf("Missing argument %d for %s", $this->key + 1, $this->getCommandName())
             );
         }
@@ -79,63 +75,55 @@ class Argument
     /**
      * Determines that current argument must be of given type
      *
-     * @return \Intervention\Image\Commands\Argument
+     * @return Intervention\Image\Commands\Argument
      */
     public function type($type)
     {
-        $valid = true;
+        $fail = false;
+
         $value = $this->value();
 
-        if ($value === null) {
+        if (is_null($value)) {
             return $this;
         }
 
         switch (strtolower($type)) {
+
             case 'bool':
             case 'boolean':
-                $valid = \is_bool($value);
-                $message = '%s accepts only boolean values as argument %d.';
+                $fail =  ! is_bool($value);
+                $message = sprintf('%s accepts only boolean values as argument %d.', $this->getCommandName(), $this->key + 1);
                 break;
+
             case 'int':
             case 'integer':
-                $valid = \is_int($value);
-                $message = '%s accepts only integer values as argument %d.';
+                $fail =  ! is_integer($value);
+                $message = sprintf('%s accepts only integer values as argument %d.', $this->getCommandName(), $this->key + 1);
                 break;
+
             case 'num':
             case 'numeric':
-                $valid = is_numeric($value);
-                $message = '%s accepts only numeric values as argument %d.';
+                $fail =  ! is_numeric($value);
+                $message = sprintf('%s accepts only numeric values as argument %d.', $this->getCommandName(), $this->key + 1);
                 break;
+
             case 'str':
             case 'string':
-                $valid = \is_string($value);
-                $message = '%s accepts only string values as argument %d.';
+                $fail =  ! is_string($value);
+                $message = sprintf('%s accepts only string values as argument %d.', $this->getCommandName(), $this->key + 1);
                 break;
-            case 'array':
-                $valid = \is_array($value);
-                $message = '%s accepts only array as argument %d.';
-                break;
+
             case 'closure':
-                $valid = is_a($value, '\Closure');
-                $message = '%s accepts only Closure as argument %d.';
-                break;
-            case 'digit':
-                $valid = $this->isDigit($value);
-                $message = '%s accepts only integer values as argument %d.';
+                $fail =  ! is_a($value, '\Closure');
+                $message = sprintf('%s accepts only Closure as argument %d.', $this->getCommandName(), $this->key + 1);
                 break;
         }
 
-        if (! $valid) {
-            $commandName = $this->getCommandName();
-            $argument = $this->key + 1;
+        if ($fail) {
 
-            if (isset($message)) {
-                $message = sprintf($message, $commandName, $argument);
-            } else {
-                $message = sprintf('Missing argument for %d.', $argument);
-            }
+            $message = isset($message) ? $message : sprintf("Missing argument for %d.", $this->key);
 
-            throw new InvalidArgumentException(
+            throw new \Intervention\Image\Exception\InvalidArgumentException(
                 $message
             );
         }
@@ -146,7 +134,7 @@ class Argument
     /**
      * Determines that current argument value must be numeric between given values
      *
-     * @return \Intervention\Image\Commands\Argument
+     * @return Intervention\Image\Commands\Argument
      */
     public function between($x, $y)
     {
@@ -160,66 +148,11 @@ class Argument
         $omega = max($x, $y);
 
         if ($value < $alpha || $value > $omega) {
-            throw new InvalidArgumentException(
+            throw new \Intervention\Image\Exception\InvalidArgumentException(
                 sprintf('Argument %d must be between %s and %s.', $this->key, $x, $y)
             );
         }
 
         return $this;
-    }
-
-    /**
-     * Determines that current argument must be over a minimum value
-     *
-     * @return \Intervention\Image\Commands\Argument
-     */
-    public function min($value)
-    {
-        $v = $this->type('numeric')->value();
-
-        if (is_null($v)) {
-            return $this;
-        }
-
-        if ($v < $value) {
-            throw new InvalidArgumentException(
-                sprintf('Argument %d must be at least %s.', $this->key, $value)
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Determines that current argument must be under a maxiumum value
-     *
-     * @return \Intervention\Image\Commands\Argument
-     */
-    public function max($value)
-    {
-        $v = $this->type('numeric')->value();
-
-        if (is_null($v)) {
-            return $this;
-        }
-
-        if ($v > $value) {
-            throw new InvalidArgumentException(
-                sprintf('Argument %d may not be greater than %s.', $this->key, $value)
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Checks if value is "PHP" integer (120 but also 120.0)
-     *
-     * @param  mixed $value
-     * @return boolean
-     */
-    private function isDigit($value)
-    {
-        return is_numeric($value) ? intval($value) == $value : false;
     }
 }

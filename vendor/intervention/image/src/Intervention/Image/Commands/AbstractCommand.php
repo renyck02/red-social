@@ -2,8 +2,6 @@
 
 namespace Intervention\Image\Commands;
 
-use Intervention\Image\Commands\Argument;
-
 abstract class AbstractCommand
 {
     /**
@@ -23,7 +21,7 @@ abstract class AbstractCommand
     /**
      * Executes current command on given image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return mixed
      */
     abstract public function execute($image);
@@ -41,12 +39,12 @@ abstract class AbstractCommand
     /**
      * Creates new argument instance from given argument key
      *
-     * @param  int $key
-     * @return \Intervention\Image\Commands\Argument
+     * @param  integer $key
+     * @return Intervention\Image\Commands\Argument
      */
     public function argument($key)
     {
-        return new Argument($this, $key);
+        return new \Intervention\Image\Commands\Argument($this, $key);
     }
 
     /**

@@ -21,7 +21,7 @@ abstract class AbstractShape
     /**
      * Border width of shape
      *
-     * @var int
+     * @var integer
      */
     public $border_width = 0;
 
@@ -29,8 +29,8 @@ abstract class AbstractShape
      * Draws shape to given image on given position
      *
      * @param  Image   $image
-     * @param  int     $posx
-     * @param  int     $posy
+     * @param  integer $posx
+     * @param  integer $posy
      * @return boolean
      */
     abstract public function applyToImage(Image $image, $posx = 0, $posy = 0);
@@ -49,7 +49,7 @@ abstract class AbstractShape
     /**
      * Set border width and color of current shape
      *
-     * @param  int     $width
+     * @param  integer $width
      * @param  string  $color
      * @return void
      */

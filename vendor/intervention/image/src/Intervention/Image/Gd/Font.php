@@ -2,15 +2,63 @@
 
 namespace Intervention\Image\Gd;
 
-use Intervention\Image\Exception\NotSupportedException;
-use Intervention\Image\Image;
+use \Intervention\Image\Image;
 
 class Font extends \Intervention\Image\AbstractFont
 {
     /**
+     * Text to be written
+     *
+     * @var String
+     */
+    protected $text;
+
+    /**
+     * Text size in pixels
+     *
+     * @var integer
+     */
+    protected $size = 12;
+
+    /**
+     * Color of the text
+     *
+     * @var mixed
+     */
+    protected $color = '000000';
+
+    /**
+     * Rotation angle of the text
+     *
+     * @var integer
+     */
+    protected $angle = 0;
+
+    /**
+     * Horizontal alignment of the text
+     *
+     * @var String
+     */
+    protected $align;
+
+    /**
+     * Vertical alignment of the text
+     *
+     * @var String
+     */
+    protected $valign;
+
+    /**
+     * Path to TTF or GD library internal font file of the text
+     *
+     * @var mixed
+     */
+    protected $file;
+
+    /**
      * Get font size in points
      *
-     * @return int
+     * @return integer
      */
     protected function getPointSize()
     {
@@ -20,15 +68,15 @@ class Font extends \Intervention\Image\AbstractFont
     /**
      * Filter function to access internal integer font values
      *
-     * @return int
+     * @return integer
      */
     private function getInternalFont()
     {
         $internalfont = is_null($this->file) ? 1 : $this->file;
         $internalfont = is_numeric($internalfont) ? $internalfont : false;
 
-        if ( ! in_array($internalfont, [1, 2, 3, 4, 5])) {
-            throw new NotSupportedException(
+        if ( ! in_array($internalfont, array(1, 2, 3, 4, 5))) {
+            throw new \Intervention\Image\Exception\NotSupportedException(
                 sprintf('Internal GD font (%s) not available. Use only 1-5.', $internalfont)
             );
         }
@@ -39,7 +87,7 @@ class Font extends \Intervention\Image\AbstractFont
     /**
      * Get width of an internal font character
      *
-     * @return int
+     * @return integer
      */
     private function getInternalFontWidth()
     {
@@ -49,7 +97,7 @@ class Font extends \Intervention\Image\AbstractFont
     /**
      * Get height of an internal font character
      *
-     * @return int
+     * @return integer
      */
     private function getInternalFontHeight()
     {
@@ -76,18 +124,11 @@ class Font extends \Intervention\Image\AbstractFont
      *
      * @return Array
      */
-    public function getBoxSize()
+    protected function getBoxSize()
     {
-        $box = [];
+        $box = array();
 
         if ($this->hasApplicableFontFile()) {
-
-            // imagettfbbox() converts numeric entities to their respective
-            // character. Preserve any originally double encoded entities to be
-            // represented as is.
-            // eg: &amp;#160; will render &#160; rather than its character.
-            $this->text = preg_replace('/&(#(?:x[a-fA-F0-9]+|[0-9]+);)/', '&#38;\1', $this->text);
-            $this->text = mb_encode_numericentity($this->text, array(0x0080, 0xffff, 0, 0xffff), 'UTF-8');
 
             // get bounding box with angle 0
             $box = imagettfbbox($this->getPointSize(), 0, $this->file, $this->text);
@@ -132,8 +173,8 @@ class Font extends \Intervention\Image\AbstractFont
      * Draws font to given image at given position
      *
      * @param  Image   $image
-     * @param  int     $posx
-     * @param  int     $posy
+     * @param  integer $posx
+     * @param  integer $posy
      * @return void
      */
     public function applyToImage(Image $image, $posx = 0, $posy = 0)
@@ -260,18 +301,4 @@ class Font extends \Intervention\Image\AbstractFont
             imagestring($image->getCore(), $this->getInternalFont(), $posx, $posy, $this->text, $color->getInt());
         }
     }
-
-    /**
-     * Set text kerning
-     *
-     * @param  string $kerning
-     * @return void
-     */
-    public function kerning($kerning)
-    {
-        throw new \Intervention\Image\Exception\NotSupportedException(
-            "Kerning is not supported by GD driver."
-        );
-    }
-
 }

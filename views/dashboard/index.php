@@ -63,7 +63,7 @@
     <div class="contenedor-derecha">
         <div class="publicar">
             <h3 class="publicar__texto">Publicar</h3>
-            <div class="publicar__input">
+            <div class="publicar__input" id="publicar">
                 <div class="publicar__imagen"></div>
                 <p class="publicar__texto">Di algo...</p>
             </div>
@@ -80,6 +80,13 @@
         <div class="busqueda__resultados" id="busqueda__resultados">
 
         </div>
+    </div>
+
+        <!-- Ventana de publicacion del usuario -->
+    <div class="publicacion" id="publicacion">
+        <textarea id="publicacion__texto" class="publicacion__texto" placeholder="¿En que estas pensando?"></textarea>
+        <input type="file" id="publicacion__imagen" class="publicacion__imagen" accept="image/jpeg, image/png">
+        <button class="publicacion__boton" id="publicacion__boton">Publicar</button>
     </div>
 
     <div class="notificaciones" id="notificaciones">

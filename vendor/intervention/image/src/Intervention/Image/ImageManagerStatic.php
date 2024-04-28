@@ -2,87 +2,56 @@
 
 namespace Intervention\Image;
 
-use Closure;
-
 class ImageManagerStatic
 {
     /**
      * Instance of Intervention\Image\ImageManager
      *
-     * @var ImageManager
+     * @var Intervention\Image\ImageManager
      */
-    public static $manager;
+    public $manager;
 
     /**
      * Creates a new instance
      *
-     * @param ImageManager $manager
+     * @param Intervention\Image\ImageManager $manager
      */
     public function __construct(ImageManager $manager = null)
     {
-        self::$manager = $manager ? $manager : new ImageManager;
+        $this->manager = $manager ? $manager : new ImageManager;
     }
 
     /**
-     * Get or create new ImageManager instance
+     * Creates a new instance
      *
-     * @return ImageManager
+     * @return Intervention\Image\ImageManagerStatic
      */
-    public static function getManager()
+    public static function newInstance()
     {
-        return self::$manager ? self::$manager : new ImageManager;
-    }
-
-    /**
-     * Statically create new custom configured image manager
-     *
-     * @param  array $config
-     *
-     * @return ImageManager
-     */
-    public static function configure(array $config = [])
-    {
-        return self::$manager = self::getManager()->configure($config);
+        return new self;
     }
 
     /**
      * Statically initiates an Image instance from different input types
      *
      * @param  mixed $data
-     *
-     * @return \Intervention\Image\Image
-     * @throws \Intervention\Image\Exception\NotReadableException
+     * @return Intervention\Image\Image
      */
     public static function make($data)
     {
-        return self::getManager()->make($data);
+        return self::newInstance()->manager->make($data);
     }
 
     /**
      * Statically creates an empty image canvas
      *
-     * @param  int   $width
-     * @param  int   $height
+     * @param  integer $width
+     * @param  integer $height
      * @param  mixed $background
-     *
-     * @return \Intervention\Image\Image
+     * @return Intervention\Image\Image
      */
     public static function canvas($width, $height, $background = null)
     {
-        return self::getManager()->canvas($width, $height, $background);
-    }
-
-    /**
-     * Create new cached image and run callback statically
-     *
-     * @param  Closure  $callback
-     * @param  int      $lifetime
-     * @param  boolean  $returnObj
-     *
-     * @return mixed
-     */
-    public static function cache(Closure $callback, $lifetime = null, $returnObj = false)
-    {
-        return self::getManager()->cache($callback, $lifetime, $returnObj);
+        return self::newInstance()->manager->canvas($width, $height, $background);
     }
 }

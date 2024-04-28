@@ -2,21 +2,20 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-use Intervention\Image\Gd\Color;
+use \Intervention\Image\Gd\Color;
 
-class PickColorCommand extends AbstractCommand
+class PickColorCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Read color information from a certain position
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        $x = $this->argument(0)->type('digit')->required()->value();
-        $y = $this->argument(1)->type('digit')->required()->value();
+        $x = $this->argument(0)->type('integer')->required()->value();
+        $y = $this->argument(1)->type('integer')->required()->value();
         $format = $this->argument(2)->type('string')->value('array');
 
         // pick color

@@ -2,23 +2,22 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
+use Intervention\Image\Gd\Source;
 use Intervention\Image\Gd\Color;
-use Intervention\Image\Gd\Decoder;
 
-class FillCommand extends AbstractCommand
+class FillCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Fills image with color or pattern
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
         $filling = $this->argument(0)->value();
-        $x = $this->argument(1)->type('digit')->value();
-        $y = $this->argument(2)->type('digit')->value();
+        $x = $this->argument(1)->type('integer')->value();
+        $y = $this->argument(2)->type('integer')->value();
 
         $width = $image->getWidth();
         $height = $image->getHeight();
@@ -27,7 +26,7 @@ class FillCommand extends AbstractCommand
         try {
 
             // set image tile filling
-            $source = new Decoder;
+            $source = new Source;
             $tile = $source->init($filling);
             imagesettile($image->getCore(), $tile->getCore());
             $filling = IMG_COLOR_TILED;

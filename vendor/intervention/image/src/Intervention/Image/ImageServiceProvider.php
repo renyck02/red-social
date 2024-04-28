@@ -1,10 +1,7 @@
-<?php
-
-namespace Intervention\Image;
+<?php namespace Intervention\Image;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\Lumen\Application as LumenApplication;
-use Illuminate\Foundation\Application as IlluminateApplication;
+use Illuminate\Http\Response;
 
 class ImageServiceProvider extends ServiceProvider
 {
@@ -16,35 +13,13 @@ class ImageServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     * Actual provider
-     *
-     * @var \Illuminate\Support\ServiceProvider
-     */
-    protected $provider;
-
-    /**
-     * Create a new service provider instance.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
-     */
-    public function __construct($app)
-    {
-        parent::__construct($app);
-
-        $this->provider = $this->getProvider();
-    }
-
-    /**
      * Bootstrap the application events.
      *
      * @return void
      */
     public function boot()
     {
-        if (method_exists($this->provider, 'boot')) {
-            return $this->provider->boot();
-        }
+        $this->package('intervention/image');
     }
 
     /**
@@ -54,25 +29,72 @@ class ImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        return $this->provider->register();
-    }
+        $app = $this->app;
 
-    /**
-     * Return ServiceProvider according to Laravel version
-     *
-     * @return \Intervention\Image\Provider\ProviderInterface
-     */
-    private function getProvider()
-    {
-        if ($this->app instanceof LumenApplication) {
-            $provider = '\Intervention\Image\ImageServiceProviderLumen';
-        } elseif (version_compare(IlluminateApplication::VERSION, '5.0', '<')) {
-            $provider = '\Intervention\Image\ImageServiceProviderLaravel4';
-        } else {
-            $provider = '\Intervention\Image\ImageServiceProviderLaravelRecent';
+        $app['image'] = $app->share(function ($app) {
+            return new ImageManager($app['config']);
+        });
+
+        // try to create imagecache route only if imagecache is present
+        if (class_exists('Intervention\Image\ImageCache')) {
+
+            // load imagecache config
+            $app['config']->package('intervention/imagecache', __DIR__.'/../../../../imagecache/src/config', 'imagecache');
+            $config = $app['config'];
+
+            // create dynamic manipulation route
+            if (is_string($config->get('imagecache::route'))) {
+
+                // add original to route templates
+                $config->set('imagecache::templates.original', null);
+
+                // setup image manipulator route
+                $app['router']->get($config->get('imagecache::route').'/{template}/{filename}', array('as' => 'imagecache', function ($template, $filename) use ($app, $config) {
+
+                    // find file
+                    foreach ($config->get('imagecache::paths') as $path) {
+                        $image_path = $path.'/'.$filename;
+                        if (file_exists($image_path) && is_file($image_path)) {
+                            break;
+                        } else {
+                            $image_path = false;
+                        }
+                    }
+
+                    // abort if file not found
+                    if ($image_path === false) {
+                        $app->abort(404);
+                    }
+
+                    // define template callback
+                    $callback = $config->get("imagecache::templates.{$template}");
+
+                    if (is_callable($callback)) {
+
+                        // image manipulation based on callback
+                        $content = $app['image']->cache(function ($image) use ($image_path, $callback) {
+                            return $callback($image->make($image_path));
+                        }, $config->get('imagecache::lifetime'));
+
+                    } else {
+
+                        // get original image file contents
+                        $content = file_get_contents($image_path);
+                    }
+
+                    // define mime type
+                    $mime = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $content);
+
+                    // return http response
+                    return new Response($content, 200, array(
+                        'Content-Type' => $mime,
+                        'Cache-Control' => 'max-age='.($config->get('imagecache::lifetime')*60).', public',
+                        'Etag' => md5($content)
+                    ));
+
+                }))->where(array('template' => join('|', array_keys($config->get('imagecache::templates'))), 'filename' => '^[\/\w.-]+$'));
+            }
         }
-
-        return new $provider($this->app);
     }
 
     /**
@@ -82,6 +104,7 @@ class ImageServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['image'];
+        return array('image');
     }
+
 }

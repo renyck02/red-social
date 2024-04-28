@@ -5,82 +5,19 @@ namespace Intervention\Image;
 abstract class AbstractFont
 {
     /**
-     * Text to be written
-     *
-     * @var String
-     */
-    public $text;
-
-    /**
-     * Text size in pixels
-     *
-     * @var int
-     */
-    public $size = 12;
-
-    /**
-     * Color of the text
-     *
-     * @var mixed
-     */
-    public $color = '000000';
-
-    /**
-     * Rotation angle of the text
-     *
-     * @var int
-     */
-    public $angle = 0;
-
-    /**
-     * Horizontal alignment of the text
-     *
-     * @var String
-     */
-    public $align;
-
-    /**
-     * Vertical alignment of the text
-     *
-     * @var String
-     */
-    public $valign;
-
-    /**
-     * Space between text characters
-     *
-     * @var float
-     */
-    public $kerning = 0;
-
-    /**
-     * Path to TTF or GD library internal font file of the text
-     *
-     * @var mixed
-     */
-    public $file;
-
-    /**
      * Draws font to given image on given position
      *
      * @param  Image   $image
-     * @param  int     $posx
-     * @param  int     $posy
+     * @param  integer $posx
+     * @param  integer $posy
      * @return boolean
      */
     abstract public function applyToImage(Image $image, $posx = 0, $posy = 0);
 
     /**
-     * Calculates bounding box of current font setting
-     *
-     * @return array
-     */
-    abstract public function getBoxSize();
-
-    /**
      * Create a new instance of Font
      *
-     * @param String $text Text to be written
+     * @param Strinf $text Text to be written
      */
     public function __construct($text = null)
     {
@@ -91,13 +28,11 @@ abstract class AbstractFont
      * Set text to be written
      *
      * @param  String $text
-     * @return self
+     * @return void
      */
     public function text($text)
     {
         $this->text = $text;
-
-        return $this;
     }
 
     /**
@@ -113,20 +48,18 @@ abstract class AbstractFont
     /**
      * Set font size in pixels
      *
-     * @param  int $size
-     * @return self
+     * @param  integer $size
+     * @return void
      */
     public function size($size)
     {
         $this->size = $size;
-
-        return $this;
     }
 
     /**
      * Get font size in pixels
      *
-     * @return int
+     * @return integer
      */
     public function getSize()
     {
@@ -137,13 +70,11 @@ abstract class AbstractFont
      * Set color of text to be written
      *
      * @param  mixed $color
-     * @return self
+     * @return void
      */
     public function color($color)
     {
         $this->color = $color;
-
-        return $this;
     }
 
     /**
@@ -159,20 +90,18 @@ abstract class AbstractFont
     /**
      * Set rotation angle of text
      *
-     * @param  int $angle
-     * @return self
+     * @param  integer $angle
+     * @return void
      */
     public function angle($angle)
     {
         $this->angle = $angle;
-
-        return $this;
     }
 
     /**
      * Get rotation angle of text
      *
-     * @return int
+     * @return integer
      */
     public function getAngle()
     {
@@ -183,13 +112,11 @@ abstract class AbstractFont
      * Set horizontal text alignment
      *
      * @param  string $align
-     * @return self
+     * @return void
      */
     public function align($align)
     {
         $this->align = $align;
-
-        return $this;
     }
 
     /**
@@ -206,13 +133,11 @@ abstract class AbstractFont
      * Set vertical text alignment
      *
      * @param  string $valign
-     * @return self
+     * @return void
      */
     public function valign($valign)
     {
         $this->valign = $valign;
-
-        return $this;
     }
 
     /**
@@ -226,37 +151,14 @@ abstract class AbstractFont
     }
 
     /**
-     * Set text kerning
-     *
-     * @param  string $kerning
-     * @return void
-     */
-    public function kerning($kerning)
-    {
-        $this->kerning = $kerning;
-    }
-
-    /**
-     * Get kerning
-     *
-     * @return float
-     */
-    public function getKerning()
-    {
-        return $this->kerning;
-    }
-
-    /**
      * Set path to font file
      *
-     * @param  string $file
-     * @return self
+     * @param  string $align
+     * @return void
      */
     public function file($file)
     {
         $this->file = $file;
-
-        return $this;
     }
 
     /**
@@ -281,15 +183,5 @@ abstract class AbstractFont
         }
 
         return false;
-    }
-
-    /**
-     * Counts lines of text to be written
-     *
-     * @return int
-     */
-    public function countLines()
-    {
-        return count(explode(PHP_EOL, $this->text));
     }
 }

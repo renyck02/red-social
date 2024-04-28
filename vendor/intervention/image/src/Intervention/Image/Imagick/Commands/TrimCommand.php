@@ -2,15 +2,14 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-use Intervention\Image\Imagick\Color;
+use \Intervention\Image\Imagick\Color;
 
-class TrimCommand extends AbstractCommand
+class TrimCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Trims away parts of an image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
@@ -27,9 +26,9 @@ class TrimCommand extends AbstractCommand
 
         // define borders to trim away
         if (is_null($away)) {
-            $away = ['top', 'right', 'bottom', 'left'];
+            $away = array('top', 'right', 'bottom', 'left');
         } elseif (is_string($away)) {
-            $away = [$away];
+            $away = array($away);
         }
 
         // lower border names
@@ -78,9 +77,9 @@ class TrimCommand extends AbstractCommand
 
         // get coordinates of trim
         $imagePage = $trimed->getImagePage();
-        list($crop_x, $crop_y) = [$imagePage['x']-1, $imagePage['y']-1];
+        list($crop_x, $crop_y) = array($imagePage['x']-1, $imagePage['y']-1);
         // $trimed->setImagePage(0, 0, 0, 0);
-        list($crop_width, $crop_height) = [$trimed->width, $trimed->height];
+        list($crop_width, $crop_height) = array($trimed->width, $trimed->height);
 
         // adjust settings if right should not be trimed
         if ( ! in_array('right', $away)) {
@@ -112,7 +111,6 @@ class TrimCommand extends AbstractCommand
 
         // finally crop based on page
         $image->getCore()->cropImage($crop_width, $crop_height, $crop_x, $crop_y);
-        $image->getCore()->setImagePage(0,0,0,0);
 
         $trimed->destroy();
 

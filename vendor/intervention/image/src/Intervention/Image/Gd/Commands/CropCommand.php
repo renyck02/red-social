@@ -2,23 +2,23 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Point;
-use Intervention\Image\Size;
+use \Intervention\Image\Point;
+use \Intervention\Image\Size;
 
 class CropCommand extends ResizeCommand
 {
     /**
      * Crop an image instance
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        $width = $this->argument(0)->type('digit')->required()->value();
-        $height = $this->argument(1)->type('digit')->required()->value();
-        $x = $this->argument(2)->type('digit')->value();
-        $y = $this->argument(3)->type('digit')->value();
+        $width = $this->argument(0)->type('integer')->required()->value();
+        $height = $this->argument(1)->type('integer')->required()->value();
+        $x = $this->argument(2)->type('integer')->value();
+        $y = $this->argument(3)->type('integer')->value();
 
         if (is_null($width) || is_null($height)) {
             throw new \Intervention\Image\Exception\InvalidArgumentException(

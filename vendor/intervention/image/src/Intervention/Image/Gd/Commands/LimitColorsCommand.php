@@ -2,15 +2,14 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
+use Intervention\Image\Gd\Color;
 
-
-class LimitColorsCommand extends AbstractCommand
+class LimitColorsCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Reduces colors of a given image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
@@ -26,7 +25,7 @@ class LimitColorsCommand extends AbstractCommand
 
         // define matte
         if (is_null($matte)) {
-            $matte = imagecolorallocatealpha($resource, 255, 255, 255, 127);
+            $matte = imagecolorallocatealpha($resource, 0, 0, 0, 127);
         } else {
             $matte = $image->getDriver()->parseColor($matte)->getInt();
         }
@@ -40,7 +39,7 @@ class LimitColorsCommand extends AbstractCommand
         // copy original image
         imagecopy($resource, $image->getCore(), 0, 0, 0, 0, $size->width, $size->height);
 
-        if (is_numeric($count) && $count <= 256) {
+        if ($count <= 256) {
             // decrease colors
             imagetruecolortopalette($resource, true, $count);
         }

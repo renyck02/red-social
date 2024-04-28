@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class InterlaceCommand extends AbstractCommand
+class InterlaceCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Toggles interlaced encoding mode
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)

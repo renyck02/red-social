@@ -691,6 +691,50 @@ h3 {
   margin: 10rem auto;
 }
 
+.publicacion {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 55vh;
+  top: 20vh;
+  width: 80rem;
+  height: 30rem;
+  background-color: rgba(0, 0, 0, 0.1568627451);
+  border-radius: 1rem;
+}
+.publicacion__texto, .publicacion__imagen, .publicacion__boton {
+  margin: 2rem 0 0 2rem;
+}
+.publicacion__texto {
+  width: 95%;
+  height: 15rem;
+  border: none;
+  border-radius: 1rem;
+  resize: none;
+}
+.publicacion__imagen {
+  display: block;
+}
+.publicacion__boton {
+  background-color: #007df4;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  width: auto;
+  border-radius: 1rem;
+}
+.publicacion__boton:hover {
+  background-color: #0063c1;
+  cursor: pointer;
+}
+
 .mostrar {
   display: block;
 }

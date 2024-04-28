@@ -2,39 +2,8 @@
 
 namespace Intervention\Image;
 
-use Intervention\Image\Exception\InvalidArgumentException;
-use Intervention\Image\Exception\NotSupportedException;
-
 abstract class AbstractEncoder
 {
-    /**
-     * Buffer of encode result data
-     *
-     * @var string
-     */
-    public $result;
-
-    /**
-     * Image object to encode
-     *
-     * @var Image
-     */
-    public $image;
-
-    /**
-     * Output format of encoder instance
-     *
-     * @var string
-     */
-    public $format;
-
-    /**
-     * Output quality of encoder instance
-     *
-     * @var int
-     */
-    public $quality;
-    
     /**
      * Processes and returns encoded image as JPEG string
      *
@@ -57,54 +26,19 @@ abstract class AbstractEncoder
     abstract protected function processGif();
 
     /**
-     * Processes and returns encoded image as TIFF string
+     * Buffer of encode result data
      *
-     * @return string
+     * @var string
      */
-    abstract protected function processTiff();
-
-    /**
-     * Processes and returns encoded image as BMP string
-     *
-     * @return string
-     */
-    abstract protected function processBmp();
-
-    /**
-     * Processes and returns encoded image as ICO string
-     *
-     * @return string
-     */
-    abstract protected function processIco();
-
-    /**
-     * Processes and returns image as WebP encoded string
-     *
-     * @return string
-     */
-    abstract protected function processWebp();
-
-    /**
-     * Processes and returns image as Avif encoded string
-     *
-     * @return string
-     */
-    abstract protected function processAvif();
-
-    /**
-     * Processes and returns image as Heic encoded string
-     *
-     * @return string
-     */
-    abstract protected function processHeic();
+    public $result;
 
     /**
      * Process a given image
      *
      * @param  Image   $image
      * @param  string  $format
-     * @param  int     $quality
-     * @return Image
+     * @param  integer $quality
+     * @return Intervention\Image\Image
      */
     public function process(Image $image, $format = null, $quality = null)
     {
@@ -125,84 +59,22 @@ abstract class AbstractEncoder
 
             case 'png':
             case 'image/png':
-            case 'image/x-png':
                 $this->result = $this->processPng();
                 break;
 
             case 'jpg':
             case 'jpeg':
-            case 'jfif':
-            case 'image/jp2':
             case 'image/jpg':
             case 'image/jpeg':
-            case 'image/pjpeg':
-            case 'image/jfif':
                 $this->result = $this->processJpeg();
                 break;
 
-            case 'tif':
-            case 'tiff':
-            case 'image/tiff':
-            case 'image/tif':
-            case 'image/x-tif':
-            case 'image/x-tiff':
-                $this->result = $this->processTiff();
-                break;
-
-            case 'bmp':
-            case 'ms-bmp':
-            case 'x-bitmap':
-            case 'x-bmp':
-            case 'x-ms-bmp':
-            case 'x-win-bitmap':
-            case 'x-windows-bmp':
-            case 'x-xbitmap':
-            case 'image/ms-bmp':
-            case 'image/x-bitmap':
-            case 'image/x-bmp':
-            case 'image/x-ms-bmp':
-            case 'image/x-win-bitmap':
-            case 'image/x-windows-bmp':
-            case 'image/x-xbitmap':
-                $this->result = $this->processBmp();
-                break;
-
-            case 'ico':
-            case 'image/x-ico':
-            case 'image/x-icon':
-            case 'image/vnd.microsoft.icon':
-                $this->result = $this->processIco();
-                break;
-
-            case 'psd':
-            case 'image/vnd.adobe.photoshop':
-                $this->result = $this->processPsd();
-                break;
-
-            case 'webp':
-            case 'image/webp':
-            case 'image/x-webp':
-                $this->result = $this->processWebp();
-                break;
-
-            case 'avif':
-            case 'image/avif':
-                $this->result = $this->processAvif();
-                break;
-
-            case 'heic':
-            case 'image/heic':
-            case 'image/heif':
-                $this->result = $this->processHeic();
-                break;
-                
             default:
-                throw new NotSupportedException(
-                    "Encoding format ({$this->format}) is not supported."
+                throw new \Intervention\Image\Exception\NotSupportedException(
+                    "Writing format ({$format}) is not supported."
                 );
+                break;
         }
-
-        $this->setImage(null);
 
         return $image->setEncoded($this->result);
     }
@@ -214,18 +86,16 @@ abstract class AbstractEncoder
      */
     protected function processDataUrl()
     {
-        $mime = $this->image->mime ? $this->image->mime : 'image/png';
-
         return sprintf('data:%s;base64,%s',
-            $mime,
-            base64_encode($this->process($this->image, $mime, $this->quality))
+            $this->image->mime,
+            base64_encode($this->process($this->image, null, $this->quality))
         );
     }
 
     /**
      * Sets image to process
      *
-     * @param Image $image
+     * @param Intervention\Image\Image $image
      */
     protected function setImage($image)
     {
@@ -239,11 +109,11 @@ abstract class AbstractEncoder
      */
     protected function setFormat($format = null)
     {
-        if ($format == '' && $this->image instanceof Image) {
+        if (is_null($format) && $this->image instanceof Image) {
             $format = $this->image->mime;
         }
 
-        $this->format = $format ? $format : 'jpg';
+        $this->format = $format;
 
         return $this;
     }
@@ -251,7 +121,7 @@ abstract class AbstractEncoder
     /**
      * Determines output quality
      *
-     * @param int $quality
+     * @param integer $quality
      */
     protected function setQuality($quality)
     {
@@ -259,7 +129,7 @@ abstract class AbstractEncoder
         $quality = $quality === 0 ? 1 : $quality;
 
         if ($quality < 0 || $quality > 100) {
-            throw new InvalidArgumentException(
+            throw new \Intervention\Image\Exception\InvalidArgumentException(
                 'Quality must range from 0 to 100.'
             );
         }

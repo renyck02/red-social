@@ -2,34 +2,32 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-use Intervention\Image\Exception\NotReadableException;
-use Intervention\Image\Image;
-use Intervention\Image\Imagick\Color;
-use Intervention\Image\Imagick\Decoder;
+use \Intervention\Image\Image;
+use \Intervention\Image\Imagick\Source;
+use \Intervention\Image\Imagick\Color;
 
-class FillCommand extends AbstractCommand
+class FillCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Fills image with color or pattern
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
         $filling = $this->argument(0)->value();
-        $x = $this->argument(1)->type('digit')->value();
-        $y = $this->argument(2)->type('digit')->value();
+        $x = $this->argument(1)->type('integer')->value();
+        $y = $this->argument(2)->type('integer')->value();
 
         $imagick = $image->getCore();
 
         try {
             // set image filling
-            $source = new Decoder;
+            $source = new Source;
             $filling = $source->init($filling);
 
-        } catch (NotReadableException $e) {
+        } catch (\Intervention\Image\Exception\NotReadableException $e) {
 
             // set solid color filling
             $filling = new Color($filling);

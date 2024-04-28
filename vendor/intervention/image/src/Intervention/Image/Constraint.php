@@ -17,14 +17,14 @@ class Constraint
     /**
      * Constraint size
      *
-     * @var \Intervention\Image\Size
+     * @var Intervention\Image\Size
      */
     private $size;
 
     /**
      * Integer value of fixed parameters
      *
-     * @var int
+     * @var integer
      */
     private $fixed = 0;
 
@@ -41,7 +41,7 @@ class Constraint
     /**
      * Returns current size of constraint
      *
-     * @return \Intervention\Image\Size
+     * @return Intervention\Image\Size
      */
     public function getSize()
     {
@@ -50,8 +50,7 @@ class Constraint
 
     /**
      * Fix the given argument in current constraint
-     *
-     * @param  int $type
+     * @param  integer $type
      * @return void
      */
     public function fix($type)
@@ -62,7 +61,7 @@ class Constraint
     /**
      * Checks if given argument is fixed in current constraint
      *
-     * @param  int  $type
+     * @param  integer  $type
      * @return boolean
      */
     public function isFixed($type)

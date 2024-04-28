@@ -2,14 +2,14 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Gd\Color;
+use \Intervention\Image\Color;
 
 class TrimCommand extends ResizeCommand
 {
     /**
      * Trims away parts of an image
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
@@ -27,9 +27,9 @@ class TrimCommand extends ResizeCommand
 
         // define borders to trim away
         if (is_null($away)) {
-            $away = ['top', 'right', 'bottom', 'left'];
+            $away = array('top', 'right', 'bottom', 'left');
         } elseif (is_string($away)) {
-            $away = [$away];
+            $away = array($away);
         }
 
         // lower border names
@@ -81,9 +81,9 @@ class TrimCommand extends ResizeCommand
                     $checkColor = $image->pickColor($x, $y, 'object');
 
                     if ($checkTransparency) {
-                        $checkColor->r = $color->r;
-                        $checkColor->g = $color->g;
-                        $checkColor->b = $color->b;
+                        $checkColor->r = 0;
+                        $checkColor->g = 0;
+                        $checkColor->b = 0;
                     }
 
                     if ($color->differs($checkColor, $tolerance)) {
@@ -105,9 +105,9 @@ class TrimCommand extends ResizeCommand
                     $checkColor = $image->pickColor($x, $y, 'object');
 
                     if ($checkTransparency) {
-                        $checkColor->r = $color->r;
-                        $checkColor->g = $color->g;
-                        $checkColor->b = $color->b;
+                        $checkColor->r = 0;
+                        $checkColor->g = 0;
+                        $checkColor->b = 0;
                     }
 
                     if ($color->differs($checkColor, $tolerance)) {
@@ -129,9 +129,9 @@ class TrimCommand extends ResizeCommand
                     $checkColor = $image->pickColor($x, $y, 'object');
 
                     if ($checkTransparency) {
-                        $checkColor->r = $color->r;
-                        $checkColor->g = $color->g;
-                        $checkColor->b = $color->b;
+                        $checkColor->r = 0;
+                        $checkColor->g = 0;
+                        $checkColor->b = 0;
                     }
 
                     if ($color->differs($checkColor, $tolerance)) {
@@ -153,9 +153,9 @@ class TrimCommand extends ResizeCommand
                     $checkColor = $image->pickColor($x, $y, 'object');
 
                     if ($checkTransparency) {
-                        $checkColor->r = $color->r;
-                        $checkColor->g = $color->g;
-                        $checkColor->b = $color->b;
+                        $checkColor->r = 0;
+                        $checkColor->g = 0;
+                        $checkColor->b = 0;
                     }
 
                     if ($color->differs($checkColor, $tolerance)) {

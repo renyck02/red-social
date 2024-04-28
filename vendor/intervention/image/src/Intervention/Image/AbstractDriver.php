@@ -2,31 +2,29 @@
 
 namespace Intervention\Image;
 
-use Intervention\Image\Exception\NotSupportedException;
-
 abstract class AbstractDriver
 {
     /**
-     * Decoder instance to init images from
+     * Source instance to init images from
      *
-     * @var \Intervention\Image\AbstractDecoder
+     * @var Intervention\Image\AbstractSource
      */
-    public $decoder;
+    public $source;
 
     /**
      * Image encoder instance
      *
-     * @var \Intervention\Image\AbstractEncoder
+     * @var Intervention\Image\AbstractEncoder
      */
     public $encoder;
 
     /**
      * Creates new image instance
      *
-     * @param  int     $width
-     * @param  int     $height
+     * @param  integer $width
+     * @param  integer $height
      * @param  string  $background
-     * @return \Intervention\Image\Image
+     * @return Intervention\Image\Image
      */
     abstract public function newImage($width, $height, $background);
 
@@ -46,24 +44,14 @@ abstract class AbstractDriver
     abstract protected function coreAvailable();
 
     /**
-     * Returns clone of given core
-     *
-     * @return mixed
-     */
-    public function cloneCore($core)
-    {
-        return clone $core;
-    }
-
-    /**
      * Initiates new image from given input
      *
      * @param  mixed $data
-     * @return \Intervention\Image\Image
+     * @return Intervention\Image\Image
      */
     public function init($data)
     {
-        return $this->decoder->init($data);
+        return $this->source->init($data);
     }
 
     /**
@@ -71,8 +59,8 @@ abstract class AbstractDriver
      *
      * @param  Image   $image
      * @param  string  $format
-     * @param  int     $quality
-     * @return \Intervention\Image\Image
+     * @param  integer $quality
+     * @return Intervention\Image\Image
      */
     public function encode($image, $format, $quality)
     {
@@ -85,7 +73,7 @@ abstract class AbstractDriver
      * @param  Image  $image
      * @param  string $name
      * @param  array $arguments
-     * @return \Intervention\Image\Commands\AbstractCommand
+     * @return Intervention\Image\Commands\AbstractCommand
      */
     public function executeCommand($image, $name, $arguments)
     {
@@ -104,12 +92,6 @@ abstract class AbstractDriver
      */
     private function getCommandClassName($name)
     {
-        if (extension_loaded('mbstring')) {
-            $name = mb_strtoupper(mb_substr($name, 0, 1)) . mb_substr($name, 1);
-        } else {
-            $name = strtoupper(substr($name, 0, 1)) . substr($name, 1);
-        }
-
         $drivername = $this->getDriverName();
         $classnameLocal = sprintf('\Intervention\Image\%s\Commands\%sCommand', $drivername, ucfirst($name));
         $classnameGlobal = sprintf('\Intervention\Image\Commands\%sCommand', ucfirst($name));
@@ -120,7 +102,7 @@ abstract class AbstractDriver
             return $classnameGlobal;
         }
 
-        throw new NotSupportedException(
+        throw new \Intervention\Image\Exception\NotSupportedException(
             "Command ({$name}) is not available for driver ({$drivername})."
         );
     }

@@ -2,31 +2,30 @@
 
 namespace Intervention\Image\Imagick\Shapes;
 
-use Intervention\Image\AbstractShape;
-use Intervention\Image\Image;
-use Intervention\Image\Imagick\Color;
+use \Intervention\Image\Image;
+use \Intervention\Image\Imagick\Color;
 
-class EllipseShape extends AbstractShape
+class EllipseShape extends \Intervention\Image\AbstractShape
 {
     /**
      * Width of ellipse in pixels
      *
-     * @var int
+     * @var integer
      */
     public $width = 100;
 
     /**
      * Height of ellipse in pixels
      *
-     * @var int
+     * @var integer
      */
     public $height = 100;
 
     /**
      * Create new ellipse instance
      *
-     * @param int $width
-     * @param int $height
+     * @param integer $width
+     * @param integer $height
      */
     public function __construct($width = null, $height = null)
     {
@@ -38,8 +37,8 @@ class EllipseShape extends AbstractShape
      * Draw ellipse instance on given image
      *
      * @param  Image   $image
-     * @param  int     $x
-     * @param  int     $y
+     * @param  integer $x
+     * @param  integer $y
      * @return boolean
      */
     public function applyToImage(Image $image, $x = 0, $y = 0)

@@ -2,22 +2,20 @@
 
 namespace Intervention\Image\Imagick\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class ResizeCanvasCommand extends AbstractCommand
+class ResizeCanvasCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Resizes image boundaries
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
     {
-        $width = $this->argument(0)->type('digit')->required()->value();
-        $height = $this->argument(1)->type('digit')->required()->value();
+        $width = $this->argument(0)->type('integer')->required()->value();
+        $height = $this->argument(1)->type('integer')->required()->value();
         $anchor = $this->argument(2)->value('center');
-        $relative = $this->argument(3)->type('boolean')->value(false);
+        $relative = $this->argument(3)->type('boolean')->value();
         $bgcolor = $this->argument(4)->value();
 
         $original_width = $image->getWidth();
@@ -75,8 +73,6 @@ class ResizeCanvasCommand extends AbstractCommand
         $rect->rectangle($dst_x, $dst_y, $dst_x + $src_w - 1, $dst_y + $src_h - 1);
         $canvas->getCore()->drawImage($rect);
         $canvas->getCore()->transparentPaintImage($fill, 0, 0, false);
-
-        $canvas->getCore()->setImageColorspace($image->getCore()->getImageColorspace());
 
         // copy image into new canvas
         $image->getCore()->cropImage($src_w, $src_h, $src_x, $src_y);

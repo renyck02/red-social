@@ -2,38 +2,37 @@
 
 namespace Intervention\Image;
 
-use Closure;
-use Intervention\Image\Exception\InvalidArgumentException;
+use \Closure;
 
 class Size
 {
     /**
      * Width
      *
-     * @var int
+     * @var integer
      */
     public $width;
 
     /**
      * Height
      *
-     * @var int
+     * @var integer
      */
     public $height;
 
     /**
      * Pivot point
      *
-     * @var Point
+     * @var Intervention\Image\Point
      */
     public $pivot;
 
     /**
      * Creates a new Size instance
      *
-     * @param int   $width
-     * @param int   $height
-     * @param Point $pivot
+     * @param integer $width
+     * @param integer $height
+     * @param Point   $pivot
      */
     public function __construct($width = null, $height = null, Point $pivot = null)
     {
@@ -45,8 +44,8 @@ class Size
     /**
      * Set the width and height absolutely
      *
-     * @param int $width
-     * @param int $height
+     * @param integer $width
+     * @param integer $height
      */
     public function set($width, $height)
     {
@@ -67,21 +66,21 @@ class Size
     /**
      * Get the current width
      *
-     * @return int
+     * @return integer
      */
     public function getWidth()
     {
-        return intval($this->width);
+        return $this->width;
     }
 
     /**
      * Get the current height
      *
-     * @return int
+     * @return integer
      */
     public function getHeight()
     {
-        return intval($this->height);
+        return $this->height;
     }
 
     /**
@@ -97,84 +96,19 @@ class Size
     /**
      * Resize to desired width and/or height
      *
-     * @param  int     $width
-     * @param  int     $height
+     * @param  integer $width
+     * @param  integer $height
      * @param  Closure $callback
      * @return Size
      */
     public function resize($width, $height, Closure $callback = null)
     {
         if (is_null($width) && is_null($height)) {
-            throw new InvalidArgumentException(
+            throw new \Intervention\Image\Exception\InvalidArgumentException(
                 "Width or height needs to be defined."
             );
         }
 
-        // new size with dominant width
-        $dominant_w_size = clone $this;
-        $dominant_w_size->resizeHeight($height, $callback);
-        $dominant_w_size->resizeWidth($width, $callback);
-
-        // new size with dominant height
-        $dominant_h_size = clone $this;
-        $dominant_h_size->resizeWidth($width, $callback);
-        $dominant_h_size->resizeHeight($height, $callback);
-
-        // decide which size to use
-        if ($dominant_h_size->fitsInto(new self($width, $height))) {
-            $this->set($dominant_h_size->width, $dominant_h_size->height);
-        } else {
-            $this->set($dominant_w_size->width, $dominant_w_size->height);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Scale size according to given constraints
-     *
-     * @param  int     $width
-     * @param  Closure $callback
-     * @return Size
-     */
-    private function resizeWidth($width, Closure $callback = null)
-    {
-        $constraint = $this->getConstraint($callback);
-
-        if ($constraint->isFixed(Constraint::UPSIZE)) {
-            $max_width = $constraint->getSize()->getWidth();
-            $max_height = $constraint->getSize()->getHeight();
-        }
-
-        if (is_numeric($width)) {
-
-            if ($constraint->isFixed(Constraint::UPSIZE)) {
-                $this->width = ($width > $max_width) ? $max_width : $width;
-            } else {
-                $this->width = $width;
-            }
-
-            if ($constraint->isFixed(Constraint::ASPECTRATIO)) {
-                $h = max(1, intval(round($this->width / $constraint->getSize()->getRatio())));
-
-                if ($constraint->isFixed(Constraint::UPSIZE)) {
-                    $this->height = ($h > $max_height) ? $max_height : $h;
-                } else {
-                    $this->height = $h;
-                }
-            }
-        }
-    }
-
-    /**
-     * Scale size according to given constraints
-     *
-     * @param  int     $height
-     * @param  Closure $callback
-     * @return Size
-     */
-    private function resizeHeight($height, Closure $callback = null)
-    {
         $constraint = $this->getConstraint($callback);
 
         if ($constraint->isFixed(Constraint::UPSIZE)) {
@@ -191,7 +125,7 @@ class Size
             }
 
             if ($constraint->isFixed(Constraint::ASPECTRATIO)) {
-                $w = max(1, intval(round($this->height * $constraint->getSize()->getRatio())));
+                $w = intval(round($this->height * $constraint->getSize()->getRatio()));
 
                 if ($constraint->isFixed(Constraint::UPSIZE)) {
                     $this->width = ($w > $max_width) ? $max_width : $w;
@@ -200,6 +134,27 @@ class Size
                 }
             }
         }
+
+        if (is_numeric($width)) {
+
+            if ($constraint->isFixed(Constraint::UPSIZE)) {
+                $this->width = ($width > $max_width) ? $max_width : $width;
+            } else {
+                $this->width = $width;
+            }
+
+            if ($constraint->isFixed(Constraint::ASPECTRATIO)) {
+                $h = intval(round($this->width / $constraint->getSize()->getRatio()));
+
+                if ($constraint->isFixed(Constraint::UPSIZE)) {
+                    $this->height = ($h > $max_height) ? $max_height : $h;
+                } else {
+                    $this->height = $h;
+                }
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -207,7 +162,7 @@ class Size
      * based on the pivot point settings of both sizes.
      *
      * @param  Size   $size
-     * @return \Intervention\Image\Point
+     * @return Intervention\Image\Point
      */
     public function relativePosition(Size $size)
     {
@@ -221,9 +176,9 @@ class Size
      * Resize given Size to best fitting size of current size.
      *
      * @param  Size   $size
-     * @return \Intervention\Image\Size
+     * @return Intervention\Image\Size
      */
-    public function fit(Size $size, $position = 'center')
+    public function fit(Size $size)
     {
         // create size with auto height
         $auto_height = clone $size;
@@ -249,8 +204,8 @@ class Size
             $size = $auto_width;
         }
 
-        $this->align($position);
-        $size->align($position);
+        $this->align('center');
+        $size->align('center');
         $size->setPivot($this->relativePosition($size));
 
         return $size;
@@ -272,9 +227,9 @@ class Size
      * and moves point automatically by offset.
      *
      * @param  string  $position
-     * @param  int     $offset_x
-     * @param  int     $offset_y
-     * @return \Intervention\Image\Size
+     * @param  integer $offset_x
+     * @param  integer $offset_y
+     * @return Intervention\Image\Size
      */
     public function align($position, $offset_x = 0, $offset_y = 0)
     {
@@ -338,8 +293,8 @@ class Size
             case 'middle':
             case 'center-center':
             case 'middle-middle':
-                $x = intval($this->width / 2) + $offset_x;
-                $y = intval($this->height / 2) + $offset_y;
+                $x = intval($this->width / 2);
+                $y = intval($this->height / 2);
                 break;
 
             default:
@@ -359,7 +314,7 @@ class Size
      * Runs constraints on current size
      *
      * @param  Closure $callback
-     * @return \Intervention\Image\Constraint
+     * @return Intervention\Image\Constraint
      */
     private function getConstraint(Closure $callback = null)
     {

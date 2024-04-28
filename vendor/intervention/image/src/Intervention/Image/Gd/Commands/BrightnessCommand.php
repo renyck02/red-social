@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class BrightnessCommand extends AbstractCommand
+class BrightnessCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Changes image brightness
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)

@@ -2,14 +2,12 @@
 
 namespace Intervention\Image\Gd\Commands;
 
-use Intervention\Image\Commands\AbstractCommand;
-
-class ColorizeCommand extends AbstractCommand
+class ColorizeCommand extends \Intervention\Image\Commands\AbstractCommand
 {
     /**
      * Changes balance of different RGB color channels
      *
-     * @param  \Intervention\Image\Image $image
+     * @param  Intervention\Image\Image $image
      * @return boolean
      */
     public function execute($image)
