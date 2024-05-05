@@ -141,4 +141,12 @@ class Usuario extends ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
         } */
+
+            // busqueda de usuarios limite 10
+    public static function busquedaUsuarios($nombre,$id){
+        $query = "SELECT id,nickname FROM " . static::$tabla  ." WHERE nickname LIKE '${nombre}%' AND
+        id <> ${id} AND confirmado = 1 LIMIT 10";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
 }

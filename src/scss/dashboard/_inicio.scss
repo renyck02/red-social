@@ -90,9 +90,12 @@ margin-top: 1.5rem;
 }
 
 .publicaciones {
-    height: 83%; 
-    width: 65rem;
+    max-height: 77.6rem; 
+    max-width:65rem;
+    height: 77.6rem; 
+    width:65rem;
     background-color: #00000005;
     border-radius: .6rem;
     margin-top: 3rem;
+    overflow: scroll;
 }

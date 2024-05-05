@@ -69,8 +69,8 @@
             </div>
         </div>
 
-        <div class="publicaciones">
-
+        <div class="publicaciones" id="publicaciones">
+        
         </div>
     </div>
     

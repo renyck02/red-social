@@ -41,5 +41,6 @@ $router->post("/api/estadorelacion", [ApiController::class, "relacion"]); // api
 $router->post("/api/notificaciones", [ApiController::class, "notificaciones"]); // api que busca las solicitudes de amistas
 $router->post("/api/agregar", [ApiController::class, "agregar"]); // cambia la relacion entre dos usuarios a 1 osea que son amigos
 $router->post("/api/publicar", [ApiController::class, "publicar"]); // api para crear publicaciones
+$router->post("/api/busquedapublicaciones", [ApiController::class, "publicaciones"]); // api para buscar publicaciones en el inicio
 
 $router->comprobarRutas();

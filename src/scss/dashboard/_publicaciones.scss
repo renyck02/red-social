@@ -1,0 +1,18 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.post { 
+    margin: 1rem;
+    &__imagen-perfil {
+        border-radius: 50%;
+        width: 4.8rem;
+        height: 4.8rem;
+        background-color: #0000000A;
+        margin-right: 1rem;
+    }
+    &__perfil{
+        display: flex;
+
+    }
+}
+

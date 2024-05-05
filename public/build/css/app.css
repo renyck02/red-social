@@ -560,11 +560,14 @@ h3 {
 }
 
 .publicaciones {
-  height: 83%;
+  max-height: 77.6rem;
+  max-width: 65rem;
+  height: 77.6rem;
   width: 65rem;
   background-color: rgba(0, 0, 0, 0.0196078431);
   border-radius: 0.6rem;
   margin-top: 3rem;
+  overflow: scroll;
 }
 
 .busqueda {
@@ -733,6 +736,20 @@ h3 {
 .publicacion__boton:hover {
   background-color: #0063c1;
   cursor: pointer;
+}
+
+.post {
+  margin: 1rem;
+}
+.post__imagen-perfil {
+  border-radius: 50%;
+  width: 4.8rem;
+  height: 4.8rem;
+  background-color: rgba(0, 0, 0, 0.0392156863);
+  margin-right: 1rem;
+}
+.post__perfil {
+  display: flex;
 }
 
 .mostrar {

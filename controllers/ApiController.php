@@ -120,4 +120,21 @@ class ApiController {
         }
         echo json_encode("no se guardo");  
     }
+
+    public static function publicaciones(){ // api para buscar publicaciones
+        session_start();
+        $id = $_SESSION["id"] ?? null;
+        if(!$id){
+            echo json_encode("Inicia sesion");
+            return;
+        }
+        $publicacion = new Publicacion();
+        $resultado = $publicacion->buscarPublicaciones($id);
+        if(!$resultado){
+            echo json_encode(" sss");
+            return;
+        }
+        echo json_encode($resultado);
+        
+    }
 }
