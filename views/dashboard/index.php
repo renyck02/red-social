@@ -29,18 +29,7 @@
                 </div>
             </div>
 
-        <div class="amigo">
-            <div class="amigo__imagen"></div>
-            <p class="amigo__nombre">Renéitor Pro</p>
-        </div>
-        <div class="amigo">
-            <div class="amigo__imagen"></div>
-            <p class="amigo__nombre">Davo luis</p>
-        </div>
-        <div class="amigo">
-            <div class="amigo__imagen"></div>
-            <p class="amigo__nombre">Tonoto yahel</p>
-        </div>
+
     </div>
 
     <div class="chats-recientes">

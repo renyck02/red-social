@@ -137,4 +137,40 @@ class ApiController {
         echo json_encode($resultado);
         
     }
+
+    public static function busquedaAmigos(){ // api para buscar a los amigos y mostrarlos en el apartado de amigos
+        session_start();
+        $id = $_SESSION["id"] ?? null;
+        if(!$id){
+            echo json_encode("Inicia sesion");
+            return;
+        }
+        $amigos = new Amigo();
+        $resultado = $amigos->busquedaAmigos($id); // busca por los amigos
+        if(!$resultado){
+            echo json_encode("No hay amigos");
+            return;
+        }
+        echo json_encode([$resultado,$id]);
+        
+        
+    }
+
+    public static function busquedaNombreUsuario(){ // api para buscar el nombre id y nickname de un usuario por su id
+        session_start();
+        $id = $_SESSION["id"] ?? null;
+        if(!$id){
+            echo json_encode("Inicia sesion");
+            return;
+        }
+        $usuario = new Usuario();
+        $resultado = $usuario->busquedaNombreUsuario($_POST["id"]); // busca por el usuario por medio de su id
+        if(!$resultado){
+            echo json_encode("no existe");
+            return;
+        }
+        echo json_encode($resultado);
+        
+        
+    }
 }

@@ -149,4 +149,9 @@ class Usuario extends ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+    public static function busquedaNombreUsuario($id){
+        $query = "SELECT id,nickname,nombre FROM " . static::$tabla  ." WHERE id = ${id} ";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+    }
 }

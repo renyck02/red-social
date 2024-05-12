@@ -17,7 +17,7 @@
             const datos = new FormData();
             datos.append("busqueda", busqueda);
             try {
-                const url = "http://localhost:3000/api/busquedaamigos";
+                const url = "http://localhost:3000/api/busquedausuarios";
                 const respuesta = await fetch(url, {
                     method:"POST",
                     body:datos

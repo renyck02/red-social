@@ -35,12 +35,14 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 $router->get("/dashboard/inicio", [DashboardController::class, "index"]);
 
 // apis
-$router->post("/api/busquedaamigos", [ApiController::class, "busquedaUsuarios"]); // api que busca a los usuarios en el buscador de usuarios
+$router->post("/api/busquedausuarios", [ApiController::class, "busquedaUsuarios"]); // api que busca a los usuarios en el buscador de usuarios
 $router->post("/api/agregaamigo", [ApiController::class, "agregaAmigo"]); // api para mandar solicitud de amistad
 $router->post("/api/estadorelacion", [ApiController::class, "relacion"]); // api que busca la relacion entre dos usuarios, si son amigos, si se han enviado solicitud o no
 $router->post("/api/notificaciones", [ApiController::class, "notificaciones"]); // api que busca las solicitudes de amistas
 $router->post("/api/agregar", [ApiController::class, "agregar"]); // cambia la relacion entre dos usuarios a 1 osea que son amigos
 $router->post("/api/publicar", [ApiController::class, "publicar"]); // api para crear publicaciones
 $router->post("/api/busquedapublicaciones", [ApiController::class, "publicaciones"]); // api para buscar publicaciones en el inicio
+$router->post("/api/busquedaAmigos", [ApiController::class, "busquedaAmigos"]); // busca por los amigos para mostrarlos 
+$router->post("/api/busquedaNombreUsuario", [ApiController::class, "busquedaNombreUsuario"]); // busca por el nombre de un usuario y nickname
 
 $router->comprobarRutas();

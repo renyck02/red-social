@@ -37,5 +37,16 @@ class Amigo extends ActiveRecord {
             $resultado = self::consultarSQL($query);
             return array_shift( $resultado ) ;
         }
+        public static function busquedaAmigos($id) { // api para consultar a los amigos
+            $query = "SELECT * FROM " . static::$tabla  ." WHERE (usuarioId = ${id} OR usuarioAmigoId = ${id}) AND estado = '1'"; // hace la consulta para buscar a los amigos del usuario y mostrarlos
+            $resultado = self::$db->query($query); 
+            if ($resultado) {
+                $filas = $resultado->fetch_all(MYSQLI_ASSOC); // Obtener todas las filas como un array asociativo
+                $resultado->free(); // Liberar la memoria del resultado
+                return $filas;
+            } else {
+                return null;
+            }
+        }
 
 }
