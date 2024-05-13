@@ -4,13 +4,13 @@
         const publicacion = document.querySelector("#publicacion"); // ventana modal para publicar una publicacion
 
         publicarInput.onclick = () => {
-            const modalAbierto = document.querySelector(".mostrar");
-            if(modalAbierto){
+            const modalAbierto = document.querySelector(".mostrar"); // si existe un modal que ya este abierto lo seleciconamos
+            if(modalAbierto){ // si existe al modal del archivo le añadimos la clase de mostrar y al que ya estaba abierto le quitamos la clase de mostrar
                 publicacion.classList.add("mostrar")
                 modalAbierto.classList.remove("mostrar")
                 return
             } 
-            publicacion.classList.add("mostrar")
+            publicacion.classList.add("mostrar") // en caso de que noeste un modal abierto, al modal del archivo le ponemos la clase de mostrar
         } 
 
         const publicacionImagen = document.getElementById("publicacion__imagen");
