@@ -1,9 +1,17 @@
 ( function (){
     const publicarInput = document.querySelector("#publicar"); // input que se muestra para publicar
     if (publicarInput){
-        const publiacion = document.querySelector("#publicacion"); // ventana modal para publicar una publicacion
+        const publicacion = document.querySelector("#publicacion"); // ventana modal para publicar una publicacion
 
-        publicarInput.onclick = () => publiacion.classList.toggle("mostrar"); // agrega o quita la clase
+        publicarInput.onclick = () => {
+            const modalAbierto = document.querySelector(".mostrar");
+            if(modalAbierto){
+                publicacion.classList.add("mostrar")
+                modalAbierto.classList.remove("mostrar")
+                return
+            } 
+            publicacion.classList.add("mostrar")
+        } 
 
         const publicacionImagen = document.getElementById("publicacion__imagen");
         const publicacionTexto = document.getElementById("publicacion__texto");

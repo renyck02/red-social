@@ -17,7 +17,7 @@
                 console.log(resultado);
                 const resultados = resultado[0] // agarra los resultados de la consulta ya que en la api nos trae un arreglo de dos resultados, los dela base de datos y el id del usuario que inicio sesion
                 const idSesion = resultado[1] // toma el id del usuario que inicio sesion
-                const filtrado = resultados.map(e => { // filtra para poner el id del amigo en el campo de usuarioAmigoId
+                const filtrado = resultados.map(e => { // filtra para poner el id del amigo en el campo de usuarioAmigoId en caso de que no este ahi
                     if (!(e.usuarioId == idSesion)){
                         e.usuarioAmigoId = e.usuarioId 
                     }

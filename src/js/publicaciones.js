@@ -47,10 +47,13 @@
                     mensaje.classList.add("post__texto");
                     publicacion.appendChild(mensaje);
 
-                    const imagen = document.createElement("IMG");
-                    imagen.setAttribute("src", "/imagenes-publicaciones/" + e.imagen );
-                    imagen.classList.add("post__imagen");
-                    publicacion.appendChild(imagen);
+                    if(e.imagen){
+                        const imagen = document.createElement("IMG");
+                        imagen.setAttribute("src", "/imagenes-publicaciones/" + e.imagen );
+                        imagen.classList.add("post__imagen");
+                        publicacion.appendChild(imagen);
+                    }
+
 
 
 

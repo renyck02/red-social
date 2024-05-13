@@ -4,7 +4,13 @@
         
         const notificaciones = document.getElementById("notificaciones");
         campana.onclick =  function (){
-            notificaciones.classList.toggle("mostrar")
+            const modalAbierto = document.querySelector(".mostrar");
+            if(modalAbierto){
+                notificaciones.classList.add("mostrar")
+                modalAbierto.classList.remove("mostrar")
+                return
+            } 
+            notificaciones.classList.add("mostrar")
             busquedaNotificaciones();
         }
 

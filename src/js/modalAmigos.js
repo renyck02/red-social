@@ -4,7 +4,13 @@
         const modal = document.getElementById("busqueda"); // ventana modal para las busquedas
         const input = document.getElementById("busqueda__input"); // input de las busquedas
         lupa.onclick =  function (){
-            modal.classList.toggle("mostrar")
+            const modalAbierto = document.querySelector(".mostrar");
+            if(modalAbierto){
+                modal.classList.add("mostrar")
+                modalAbierto.classList.remove("mostrar")
+                return
+            } 
+            modal.classList.add("mostrar")
         }
         input.addEventListener("input", function(){
             let busqueda = this.value;
