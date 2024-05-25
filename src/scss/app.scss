@@ -1,6 +1,11 @@
 @use 'base';
 @use 'auth';
 @use 'dashboard';
+@use 'default-rules/default-rules';
+@use 'default-rules/color-modules';
+@use 'default-rules/content-box';
+@use 'default-rules/md-rules';
+@use 'theme/theme';
 .mostrar{
     display: block;
 }
