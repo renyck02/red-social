@@ -33,6 +33,7 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 // dashboard
 $router->get("/dashboard/inicio", [DashboardController::class, "index"]);
+$router->get("/dashboard/chats", [DashboardController::class, "chats"]);
 
 // apis
 $router->post("/api/busquedausuarios", [ApiController::class, "busquedaUsuarios"]); // api que busca a los usuarios en el buscador de usuarios

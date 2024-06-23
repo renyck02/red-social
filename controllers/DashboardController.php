@@ -11,4 +11,12 @@ class DashboardController {
 
         ]);
     }
+
+    public static function chats(Router $router){
+        session_start();
+        
+        $router->render("dashboard/chats", [
+
+        ]);
+    }
 }

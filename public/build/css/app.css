@@ -570,6 +570,10 @@ h3 {
   overflow: scroll;
 }
 
+.height-90 {
+  height: 90rem;
+}
+
 .busqueda {
   display: none;
   position: fixed;
