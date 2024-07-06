@@ -55,6 +55,16 @@
         amigos.forEach(e => {
             const div = document.createElement("DIV")
             div.classList.add("amigo")
+            div.onclick = ()=>{
+                const url = new URL(window.location);
+                url.searchParams.set("idamigo", e.usuarioAmigoId);
+                window.history.pushState({}, '', url);
+                // 
+                if(!url.href.includes("chats")){
+                    window.location.href = `http://localhost:3000/dashboard/chats?idamigo=${e.usuarioAmigoId}`;
+                }
+            }
+            div.dataset.idAmigo = e.usuarioAmigoId
 
             const divImagen = document.createElement("DIV")
             divImagen.classList.add("amigo__imagen")
