@@ -22,6 +22,23 @@ class Miembros_grupo extends ActiveRecord {
         $this->usuario_id = $args['usuario_id'] ?? null ;
     }
 
+    public static function obtenerElGrupoDelChat($usuarioId,$amigoId){
+            // consulta
+            $query = "SELECT grupo_id
+FROM miembros_grupo
+WHERE usuario_id IN (${usuarioId} ,${amigoId})
+GROUP BY grupo_id
+HAVING COUNT(*) = 2
+AND COUNT(DISTINCT usuario_id) = 2"; 
+            $resultado = self::consultarSQL($query);
+            
+            if ($resultado) {
+                return array_shift( $resultado ) ;
+            } else {
+                return null;
+            }
+    }
+
     
 
 }

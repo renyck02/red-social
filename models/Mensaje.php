@@ -4,10 +4,11 @@ namespace Model;
 
 class Mensaje extends ActiveRecord {
     protected static $tabla = 'mensajes';
-    protected static $columnasDB = ['mensajeId', 'grupoId', 'fecha', 'contenido','contenidoImagen'];
+    protected static $columnasDB = ['id', 'grupoId','usuario_id', 'fecha', 'contenido','contenidoImagen'];
 
-    public $mensajeId;
+    public $id;
     public $grupoId;
+    public $usuario_id;
     public $fecha;
     public $contenido;
     public $contenidoImagen;
@@ -17,11 +18,12 @@ class Mensaje extends ActiveRecord {
     
     public function __construct($args = [])
     {
-        $this->mensajeId = $args['mensajeId'] ?? null;
+        $this->id = $args['id'] ?? null;
         $this->grupoId = $args['grupoId'] ?? null;
+        $this->usuario_id = $args['usuario_id'] ?? null;
         $this->fecha = $args['fecha'] ??date("Y-m-d") ;
         $this->contenido = $args['contenido'] ?? "";
-        $this->contenidoImagen = $args['contenido'] ?? "";
+        $this->contenidoImagen = $args['contenidoImagen'] ?? "";
 
 
     }

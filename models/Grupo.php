@@ -17,7 +17,7 @@ class Grupo extends ActiveRecord {
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nombre = $args['nombre'] ?? null;
+        $this->nombre = $args['nombre'] ?? "chat";
         $this->fecha_creacion = $args['fecha_creacion'] ??date("Y-m-d") ;
     }
 
